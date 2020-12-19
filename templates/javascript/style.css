@@ -3,35 +3,20 @@ nav {background-color: rgb(233, 211, 85);
 font-weight: bold;
 color: black;}
 
-.navbar.center {
-    text-align: center;
-}
 
-.topbar-center-logo {
-  background: $topbar-center-logo-bg;
-
-  .menu {
-    background: $topbar-center-logo-bg;
-
-    a {
-      color: $white;
+  
+  .topbar-center-logo .top-bar-center {
+    -webkit-flex: 1 0 auto;
+        -ms-flex: 1 0 auto;
+            flex: 1 0 auto;
+  }
+  
+  @media screen and (max-width: 39.9375em) {
+    .topbar-center-logo .top-bar-center {
+      display: none;
     }
   }
-}
-
-.topbar-center-logo .top-bar-center {
-  flex: 1 0 auto;
-
-  @include breakpoint(small only) {
-    display: none;
-  }
-}
-
-.topbar-center-logo-mobile {
-  background: $topbar-center-logo-bg;
-
-  .menu-icon {
+   
+  .topbar-center-logo-mobile .menu-icon {
     vertical-align: text-top;
   }
-}
-
