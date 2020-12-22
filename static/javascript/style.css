@@ -1,0 +1,34 @@
+nav {background-color: rgb(233, 211, 85);
+    font-size: 30px;
+font-weight: bold;
+color: black;
+text-align: center;}
+
+
+   
+  .topbar-center-logo-mobile .menu-icon {
+    vertical-align: text-top;
+  }
+
+  h1 {color : black;
+    text-align: center;
+  font-weight: bold;}
+  
+  h2 {color : black;
+    text-align: center;
+  font-weight: bold;}
+  
+  h4 {color : black;
+  text-align: center;}
+
+  body {color :cornsilk ;}
+
+.pokemoncard {
+  border: 2px;
+  border-color: black;
+  color: black;
+}
+
+.filter-header {
+  background-color: red;
+}

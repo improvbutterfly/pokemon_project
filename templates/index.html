@@ -6,11 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
-    <link rel="stylesheet" href="javascript/style.css">
+    <link rel="stylesheet" href="static/javascript/style.css">
 </head>
 
 <body style="background-color: rgb(250, 248, 241);">
-<script src="javascript/navbar.js"></script>
+{% block javascript %}
+<script>
+    var pokemonInfo = {{ info | tojson }};
+    console.log(pokemonInfo);
+</script>
+{% endblock %}
+<script src="static/javascript/navbar.js"></script>
 
 <h1>Pok&eacute;mon<sup>TM</sup>:</h1> 
 <h2>Gotta Catch 'Em All</h2><br>    
@@ -28,8 +34,8 @@
                   <div class="form-group">
                     <ul class="list-group" id="filters">
                       <li class="filter list-group-item">
-                        <label for="name">Pok&eacute;mon Name</label>
-                        <input class="form-control" id="name" type="text" placeholder="Pikachu">
+                        <label for="input-name">Pok&eacute;mon Name</label>
+                        <input class="form-control" id="input-name" type="text" placeholder="Pikachu">
                       </li>
                       <li class="filter list-group-item">
                         <label for="generation">Generation</label>
@@ -49,30 +55,34 @@
         </div>
       <div class="col">
         <div class="pokemoncard">
-            <img src="images/pokemon/pikachu.jpg" width="300"/>
-            <h3>Pikachu</h3>
-            <p>Entry will go here.</p>
+            <img src="static/images/pokemon/pikachu.jpg" width="300"/>
+            <h3 id="pokemon-name">Pikachu</h3>
+            <p id="pokemon-entry">Entry will go here.</p>
             <table>
                 <tbody>
                     <tr>
                         <td>Gen:</td>
-                        <td></td>
+                        <td id="gen"></td>
                     </tr>
                     <tr>
                         <td>Type 1:</td>
-                        <td></td>
+                        <td id="type1"></td>
                     </tr>
                     <tr>
                         <td>Type 2:</td>
-                        <td></td>
+                        <td id="type2"></td>
+                    </tr>
+                    <tr>
+                        <td>Classification:</td>
+                        <td id="classification"></td>
                     </tr>
                     <tr>
                         <td>Height:</td>
-                        <td></td>
+                        <td id="height"></td>
                     </tr>
                     <tr>
                         <td>Weight:</td>
-                        <td></td>
+                        <td id="weight"></td>
                     </tr>
                 </tbody>
             </table>
@@ -83,6 +93,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="static/javascript/app.js"></script>
 
 </body>
 </html>
