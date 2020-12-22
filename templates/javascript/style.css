@@ -28,3 +28,7 @@ text-align: center;}
   border-color: black;
   color: black;
 }
+
+.filter-header {
+  background-color: red;
+}
