@@ -18,6 +18,10 @@ function runEnter() {
 
 	console.log(pokemonName);
 
+	// Update image and name using D3
+	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + pokemonName.toLowerCase() + ".jpg");
+	d3.select("#pokemon-name").html(pokemonName);
+
 	// Find the pokemon in the json data
 
 
