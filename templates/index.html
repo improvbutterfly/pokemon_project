@@ -10,15 +10,9 @@
 </head>
 
 <body style="background-color: rgb(250, 248, 241);">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-        <div class="top-bar topbar-center-logo" id="topbar-center-logo">
-            <div class="title-bar-center">
-                <a href="index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2000px-International_Pok%C3%A9mon_logo.svg.png" width="200" height="100" /></a>
-            </div>
-        </div>
-    </nav>
+<script src="javascript/navbar.js"></script>
 
-<h2>Pokemon:</h2> 
+<h1>Pok&eacute;mon<sup>TM</sup>:</h1> 
 <h2>Gotta Catch 'Em All</h2><br>    
 <h4> Please select your pokemon by typing in the Pokemon's name </h4>
 <h4> You can randomly select any pokemon, or filter by generation, type of pokemon, and height.</h4>
@@ -26,13 +20,74 @@
 <div class="container">
     <div class="row">
       <div class="col">
-        1 of 2
-      </div>
+        <aside class="filters">
+            <div class="panel panel-default">
+              <div class="panel-heading">Filter Search</div>
+              <div class="panel-body">
+                <form id="filter-form">
+                  <div class="form-group">
+                    <ul class="list-group" id="filters">
+                      <li class="filter list-group-item">
+                        <label for="name">Pok&eacute;mon Name</label>
+                        <input class="form-control" id="name" type="text" placeholder="Pikachu">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="generation">Generation</label>
+                        <input class="form-control" id="generation" type="text" placeholder="1">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="type">Pok&eacute;mon Type &copy;</label>
+                        <input class="form-control" id="state" type="text" placeholder="ca">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="country">Enter a Country</label>
+                        <input class="form-control" id="country" type="text" placeholder="us">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="shape">Enter a Shape</label>
+                        <input class="form-control" id="shape" type="text" placeholder="triangle">
+                      </li>
+                    </ul>
+                  </div>
+                  <button id="filter-btn" type="submit" class="btn btn-default">Filter Pok&eacute;mon</button>
+                </form>
+              </div>
+            </div>
+          </aside>
+        </div>
       <div class="col">
-        2 of 2
+        <div class="pokemoncard">
+            <img src="images/pokemon/pikachu.jpg" width="300"/>
+            <h3>Pikachu</h3>
+            <p>Entry will go here.</p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Gen:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Type 1:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Type 2:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Height:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Weight:</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
       </div>
     </div>
-
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
