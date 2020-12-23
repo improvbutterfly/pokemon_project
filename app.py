@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/pokemon'
 mongo = PyMongo(app)
 
-@app.route("/")
+@app.route("/index.html")
 def index():
 	# Get all pokemon info entries
 	cursor = mongo.db.info.find({})
