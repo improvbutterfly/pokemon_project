@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/pokemon'
 mongo = PyMongo(app)
 
-@app.route("/index.html")
+@app.route("/")
 def index():
 	# Get all pokemon info entries
 	cursor = mongo.db.info.find({})
@@ -20,7 +20,7 @@ def index():
 def fight():
 	cursor = mongo.db.info.find({})
 	pokemon_info = loads(dumps(cursor))
-	print(pokemon_info)
+
 
 	return render_template("fight.html", info=pokemon_info)
 
@@ -28,7 +28,7 @@ def fight():
 def breed():
 	cursor = mongo.db.info.find({})
 	pokemon_info = loads(dumps(cursor))
-	print(pokemon_info)
+	
 
 	return render_template("breed.html", info=pokemon_info)
 
@@ -36,7 +36,7 @@ def breed():
 def graph():
 	cursor = mongo.db.info.find({})
 	pokemon_info = loads(dumps(cursor))
-	print(pokemon_info)
+
 
 	return render_template("graph.html", info=pokemon_info)
 
