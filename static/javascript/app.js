@@ -17,14 +17,29 @@ function runEnter() {
 	var pokemonName = d3.select("#input-name").property("value");
 
 	console.log(pokemonName);
+	console.log(pokemonInfo);
 
 	// Update image and name using D3
-	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + pokemonName.toLowerCase() + ".jpg");
+	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + pokemonName + ".jpg");
 	d3.select("#pokemon-name").html(pokemonName);
 
-	// Find the pokemon in the json data
+	const entry = info.find( ({ entry }) => info.name === pokemonName );
+	console.log(entry)
 
+	d3.select("#pokemon-entry").html(entry)
+
+	
+
+	// Find the pokemon in the json data
+	
+    // Build Table
 
 	// Update the card info using D3
 
-}
+
+
+
+
+
+
+

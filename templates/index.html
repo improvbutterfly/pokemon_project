@@ -58,17 +58,17 @@
       <div class="col">
         <div class="pokemoncard">
             <img src="static/images/pikachu.jpg" id="pokemon-image" width="300"/>
-            <h3 id="pokemon-name">Pikachu</h3>
-            <p id="pokemon-entry">Entry will go here.</p>
+            <h3 id="pokemon-name">{{ info.name }}</h3>
+            <p id="pokemon-entry">{{ info.entry }}</p>
             <table>
                 <tbody>
                     <tr>
                         <td>Gen:</td>
-                        <td id="gen"></td>
+                        <td id="gen">{{ info.gen }}</td>
                     </tr>
                     <tr>
                         <td>Type 1:</td>
-                        <td id="type1"></td>
+                        <td id="type1">{{ info.type1 }}</td>
                     </tr>
                     <tr>
                         <td>Type 2:</td>
