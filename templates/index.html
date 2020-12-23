@@ -18,25 +18,27 @@
 {% endblock %}
 <script src="static/javascript/navbar.js"></script>
 
-<h1>Pok&eacute;mon<sup>TM</sup>:</h1> 
+<h1>Pok&eacute;mon:</h1> 
 <h2>Gotta Catch 'Em All</h2><br>    
 <h4> Please select your pokemon by typing in the Pokemon's name </h4>
-<h4> You can randomly select any pokemon, or filter by generation, type of pokemon, and height.</h4>
+<h4> You can randomly select any pokemon, or filter by generation and type of pokemon.</h4><br>
 
 <div class="container">
     <div class="row">
       <div class="col">
         <aside class="filters">
             <div class="panel panel-default">
-              <div class="panel-heading filter-header">Filter Search</div>
+              <button id="filter-btn" type="submit" class="btn btn-default button1">Click here for a random Pok&eacute;mon</button><br>
               <div class="panel-body">
                 <form id="filter-form">
-                  <div class="form-group">
+                  
                     <ul class="list-group" id="filters">
                       <li class="filter list-group-item">
                         <label for="input-name">Pok&eacute;mon Name</label>
                         <input class="form-control" id="input-name" type="text" placeholder="Pikachu">
                       </li>
+                      <button id="filter-btn" type="submit" class="btn btn-default button1">Search by Name</button>
+
                       <li class="filter list-group-item">
                         <label for="generation">Generation</label>
                         <input class="form-control" id="generation" type="text" placeholder="1">
@@ -46,8 +48,8 @@
                         <input class="form-control" id="type" type="text" placeholder="electric">
                       </li>
                     </ul>
-                  </div>
-                  <button id="filter-btn" type="submit" class="btn btn-default">Filter Pok&eacute;mon</button>
+               
+                  <button id="filter-btn" type="submit" class="btn btn-default button1">Filter by Type and Gen.</button>
                 </form>
               </div>
             </div>
