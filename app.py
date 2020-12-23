@@ -16,17 +16,29 @@ def index():
 	return render_template("index.html", info=pokemon_info)
 
 
-@app.route("/fight")
+@app.route("/fight.html")
 def fight():
-	return render_template("fight.html")
+	cursor = mongo.db.info.find({})
+	pokemon_info = loads(dumps(cursor))
+	print(pokemon_info)
 
-@app.route("/breed")
+	return render_template("fight.html", info=pokemon_info)
+
+@app.route("/breed.html")
 def breed():
-	return render_template("breed.html")
+	cursor = mongo.db.info.find({})
+	pokemon_info = loads(dumps(cursor))
+	print(pokemon_info)
 
-@app.route("/graph")
+	return render_template("breed.html", info=pokemon_info)
+
+@app.route("/graph.html")
 def graph():
-	return render_template("graph.html")
+	cursor = mongo.db.info.find({})
+	pokemon_info = loads(dumps(cursor))
+	print(pokemon_info)
+
+	return render_template("graph.html", info=pokemon_info)
 
 if __name__ == "__main__":
 	app.run(debug=True)
