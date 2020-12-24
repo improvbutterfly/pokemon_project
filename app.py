@@ -12,7 +12,7 @@ def index():
 	# Get all pokemon info entries
 	cursor = mongo.db.info.find({})
 	pokemon_info = loads(dumps(cursor))
-	print(pokemon_info)
+	
 	return render_template("index.html", info=pokemon_info)
 
 
