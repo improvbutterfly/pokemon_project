@@ -45,22 +45,25 @@ function filterGen() {
 	var type = d3.select("#type").property("value");
 
 	var filtered = pokemonInfo;
-	console.log(filtered[5])
 
-  	if (gen) {
-  	filter = filtered.filter(pokemon => pokemon.generation === gen && pokemon.type1 == type)};
+	if (gen) {
+  	filter = filtered.filter(pokemon => pokemon.generation === gen)
 
-  	console.log(filter);
+  	if (type) {
+  	rand = filter.filter(pokemon => pokemon.type1 === type)
+  
+  	var rando = rand[Math.floor(Math.random()*rand.length)]}}
 
-  	var rando = filter[Math.floor(Math.random()*filter.length)];
-
-  	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + rando[0].name + ".jpg");
-	d3.select("#pokemon-name").html(rando[0].name);
-	d3.select("#pokemon-entry").html(rando[0].entry);
-	d3.select("#gen").html(rando[0].generation);
-	d3.select("#height").html(rando[0].height_m);
-	d3.select("#weight").html(rando[0].weight_kg);
-}
+  	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + rando.name + ".jpg");
+		d3.select("#pokemon-name").html(rando.name);
+		d3.select("#pokemon-entry").html(rando.entry);
+		d3.select("#gen").html(rando.generation);
+		d3.select("#height").html(rando.height_m);
+		d3.select("#weight").html(rando.weight_kg);
+		d3.select("#classification").html(rando.classfication);
+		d3.select("#type1").html(rando.type1);
+		d3.select("#type2").html(rando.type2);
+};
 
 
 function searchName() {
