@@ -23,7 +23,7 @@ function bringRandom() {
 	d3.event.preventDefault();
 
 		var rando = pokemonInfo[Math.floor(Math.random()*pokemonInfo.length)];
-
+		console.log(rando);
 			d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + rando.name + ".jpg");
 			d3.select("#pokemon-name").html(rando.name);
 			d3.select("#pokemon-entry").html(rando.entry);
@@ -41,7 +41,25 @@ function filterGen() {
 	
 	d3.event.preventDefault();
 
-	console.log("A button was clicked");
+	var gen = d3.select("#generation").property("value");
+	var type = d3.select("#type").property("value");
+
+	var filtered = pokemonInfo;
+	console.log(filtered[5])
+
+  	if (gen) {
+  	filter = filtered.filter(pokemon => pokemon.generation === gen && pokemon.type1 == type)};
+
+  	console.log(filter);
+
+  	var rando = filter[Math.floor(Math.random()*filter.length)];
+
+  	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + rando[0].name + ".jpg");
+	d3.select("#pokemon-name").html(rando[0].name);
+	d3.select("#pokemon-entry").html(rando[0].entry);
+	d3.select("#gen").html(rando[0].generation);
+	d3.select("#height").html(rando[0].height_m);
+	d3.select("#weight").html(rando[0].weight_kg);
 }
 
 
