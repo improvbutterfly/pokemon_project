@@ -5,6 +5,9 @@ var crazy = d3.select("#click-me");
 // Select the button
 var button = d3.select("#filter-btn");
 
+// Selecting the second button
+var button2 = d3.select("#filter-btn2");
+
 // Select the form
 var form = d3.select("#filter-gen");
 
@@ -14,6 +17,8 @@ var form = d3.select("#filter-gen");
 crazy.on("click", bringRandom);
 
 button.on("click", searchName);
+
+button2.on("click", searchName2);
 
 form.on("click", filterGen);
 
@@ -63,7 +68,7 @@ function filterGen() {
 		d3.select("#classification").html(rando.classfication);
 		d3.select("#type1").html(rando.type1);
 		d3.select("#type2").html(rando.type2);
-};
+}
 
 
 function searchName() {
@@ -84,11 +89,28 @@ function searchName() {
 	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + pokemonName + ".jpg");
 			d3.select("#pokemon-name").html(filter[0].name);
 			d3.select("#pokemon-entry").html(filter[0].entry);
-			d3.select("#gen").html(filter[0].generation);
-			d3.select("#height").html(filter[0].height_m);
-			d3.select("#weight").html(filter[0].weight_kg);
-			d3.select("#classification").html(filter[0].classfication);
-			d3.select("#type1").html(filter[0].type1);
-			d3.select("#type2").html(filter[0].type2);
+			
+}
+
+
+function searchName2() {
+
+  // Prevent the page from refreshing
+  d3.event.preventDefault();
+
+	// Grab the pokemon name from the form
+	var pokemonName2 = d3.select("#input-name2").property("value");
+	var filtered2 = pokemonInfo;
+	
+
+	if (pokemonName2){
+  	filter2 = filtered2.filter(pokemon => pokemon.name === pokemonName2);
+  	console.log(filter2[0])}
+	
+	// Update image and name using D3
+	d3.select("#pokemon-image2").attr("src", "static/images/pokemon/" + pokemonName2 + ".jpg");
+	d3.select("#pokemon-name2").html(filter2[0].name);
+	d3.select("#pokemon-entry2").html(filter2[0].entry);
+		
 }
 
