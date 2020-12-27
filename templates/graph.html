@@ -18,10 +18,73 @@
 {% endblock %}
 <script src="static/javascript/navbar.js"></script>
 
-<h1>Pok&eacute;mon<sup>TM</sup>:</h1> 
+<h1>Pok&eacute;mon</h1>
 <h2>Gotta Catch 'Em All</h2><br>    
-<h4> Please select your pokemon by typing in the Pokemon's name </h4>
-<h4> You can randomly select any pokemon, or filter by generation, type of pokemon, and height.</h4>
+<h4> Please select two pokemon to breed together. (First generation only) </h4><br>
+
+
+<div class="col-md-4">
+    <div class="row">
+      <div class="col">
+        <aside class="filters">
+            <div class="panel panel-default">
+                <form id="filter-form">
+                  <ul class="list-group" id="filters">
+                    <div class="panel-body">
+                      <li class="filter list-group-item">
+                        <label for="input-name">Pok&eacute;mon Name</label>
+                        <input class="form-control" id="input-name" type="text" placeholder="Pikachu">
+                      </li>
+                      <li class="filter list-group-item">
+                        <button id="filter-btn" type="submit" class="btn btn-default">Search by Name</button>
+                      </li>
+                      </ul>
+                </form>
+            </div>
+          </aside>
+        </div>
+        <div class="pokemoncard">
+          <img src="static/images/pokemon/pikachu.jpg" id="pokemon-image" width="300"/>
+            <h2 id="pokemon-name">Pikachu</h2>
+            <br>
+              <p id="pokemon-entry">Here you will see the Pokemon blurb</p>
+              <br>
+              </div>
+      </div>
+    </div>
+</div>
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+    <div class="row">
+      <div class="col">
+        <aside class="filters">
+            <div class="panel panel-default">
+                <form id="filter-form">
+                  <ul class="list-group" id="filters">
+                    <div class="panel-body">
+                      <li class="filter list-group-item">
+                        <label for="input-name">Pok&eacute;mon Name</label>
+                        <input class="form-control" id="input-name2" type="text" placeholder="Pikachu">
+                      </li>
+                      <li class="filter list-group-item">
+                        <button id="filter-btn2" type="submit" class="btn btn-default">Search by Name</button>
+                      </li>
+                      </ul>
+                </form>
+            </div>
+          </aside>
+        </div>
+        <div class="pokemoncard">
+          <img src="static/images/pokemon/pikachu.jpg" id="pokemon-image2" width="300"/>
+            <h2 id="pokemon-name2">Pikachu</h2>
+            <br>
+              <p id="pokemon-entry2">Here you will see the Pokemon blurb</p>
+              <br>
+              </div>
+      </div>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
