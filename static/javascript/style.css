@@ -1,39 +1,77 @@
-nav {background-color: rgb(233, 211, 85);
-    font-size: 70px;
-font-weight: bold;
-color: black;
-text-align: center;}
-
+nav {
+  background-color: rgb(233, 211, 85);
+  font-size: 70px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+}
    
-  .topbar-center-logo-mobile .menu-icon {
-    vertical-align: text-top;
-  }
+.topbar-center-logo-mobile .menu-icon {
+  vertical-align: text-top;
+  width: 100%;
+  text-align: center;
+}
 
-  h1 {color : black;
-    text-align: center;
-  font-weight: bold;}
+#topbar-center-logo {
+  vertical-align: text-top;
+  width: 100%;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 12pt;
+  margin: 10px;
+}
+
+.title-bar-center a, img {
+  padding: 10px;
+}
+
+h1 {
+  color : black;
+  text-align: center;
+  font-weight: bold;
+}
   
-  h2 {color : black;
-    text-align: center;
-  font-weight: bold;}
+h2 {
+  color : black;
+  text-align: center;
+  font-weight: bold;
+}
   
-  h4 {color : black;
-  text-align: center;}
+h4 {
+  color : black;
+  text-align: center;
+}
 
-  body {color :cornsilk ;}
+body {color :cornsilk ;}
 
-  tbody {
+tbody {
   padding: 15px;
-  text-align: center;}
+  text-align: left;
+  font-size: 12pt;
+}
+
+th {
+  padding: 2px;
+  font-size: 12pt;
+}
+
+td {
+  padding-left: 5px;
+}
+
 
 .btn-danger {
   color: black;
   align-content: center;
 }
 
-.pokemoncard {
-  border: 2px;
+.pokemoncard{
   border-color: black;
+  border-style: double;
+  width: fit-content;
+  background-color: wheat;
+  margin: auto;
+  padding: 20px;
   color: black;
 }
 
@@ -63,3 +101,4 @@ text-align: center;}
  align-content: center;
  display: inline-block;
 }
+
