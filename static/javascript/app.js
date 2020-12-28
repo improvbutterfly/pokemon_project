@@ -11,6 +11,10 @@ var button2 = d3.select("#filter-btn2");
 // Select the form
 var form = d3.select("#filter-gen");
 
+// Select the fusion
+
+var fusion = d3.select(#"fusion")
+
 
 // Create event handlers 
 
@@ -21,6 +25,8 @@ button.on("click", searchName);
 button2.on("click", searchName2);
 
 form.on("click", filterGen);
+
+fusion.on("click", fusionTime);
 
 
 function bringRandom() {
@@ -113,4 +119,21 @@ function searchName2() {
 	d3.select("#pokemon-entry2").html(filter2[0].entry);
 		
 }
+
+function fusionTime() {
+
+	window.open("https://pokemon.alexonsager.net");
+
+
+}
+
+
+
+
+
+
+
+
+
+
 
