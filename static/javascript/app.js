@@ -13,7 +13,7 @@ var form = d3.select("#filter-gen");
 
 // Select the fusion
 
-var fusion = d3.select(#"fusion")
+var fusion = d3.select("#fusion")
 
 
 // Create event handlers 
