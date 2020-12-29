@@ -52,7 +52,8 @@ h4 {
 }
 
 body {
-  background-color: cornsilk;
+  color: cornsilk;
+  background-color: rgb(247, 237, 204);
 }
 
 .container {
@@ -160,8 +161,88 @@ td {
   cursor: pointer;
 }
 
+circle {
+  opacity: 80%;
+}
+
 .stateCircle {
   fill: #89bdd3; 
+  stroke: #e3e3e3;
+}
+
+.poisonCircle {
+  fill: purple; 
+  stroke: #e3e3e3;
+}
+
+.fireCircle {
+  fill: orange; 
+  stroke: #e3e3e3;
+}
+
+.grassCircle{
+  fill: green; 
+  stroke: #e3e3e3;
+}
+.waterCircle {
+  fill: blue; 
+  stroke: #e3e3e3;
+}
+.bugCircle {
+  fill: lavender; 
+  stroke: #e3e3e3;
+}
+.normalCircle {
+  fill: plum; 
+  stroke: #e3e3e3;
+}
+.electricCircle {
+  fill: yellow; 
+  stroke: #e3e3e3;
+}
+.groundCircle {
+  fill: brown; 
+  stroke: #e3e3e3;
+}
+.fairyCircle {
+  fill: pink; 
+  stroke: #e3e3e3;
+}
+.fightingCircle {
+  fill: red; 
+  stroke: #e3e3e3;
+}
+.psychicCircle {
+  fill: cyan; 
+  stroke: #e3e3e3;
+}
+.rockCircle {
+  fill: gray; 
+  stroke: #e3e3e3;
+}
+.ghostCircle {
+  fill: #dddddd; 
+  stroke: #e3e3e3;
+  opacity: 60%;
+}
+.iceCircle {
+  fill: #13d3dd; 
+  stroke: #e3e3e3;
+}
+.dragonCircle {
+  fill: #d35313; 
+  stroke: #e3e3e3;
+}
+.darkCircle {
+  fill: #333333; 
+  stroke: #e3e3e3;
+}
+.steelCircle {
+  fill: #d3d3d3; 
+  stroke: #e3e3e3;
+}
+.flyingCircle {
+  fill: #14d314; 
   stroke: #e3e3e3;
 }
 

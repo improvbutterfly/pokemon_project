@@ -29,7 +29,7 @@ function init() {
     }
 	}
 
-	// This needs work
+    // Print the type options
     console.log(types);
     d3.select("#type").selectAll("option")
     .data(types)
@@ -157,7 +157,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
   var toolTip = d3.tip()
     .attr("class", "d3-tip")
-    .offset([100, -60])
+    .offset([140, 80])
     .html(function(d) {
       // Create labels for the different options
       
@@ -214,6 +214,10 @@ function filterGraph() {
 
 	var gen = d3.select("#generation").property("value");
 	var type = d3.select("#type").property("value");
+  var minweight = d3.select("#minweight").property("value");
+  var maxweight = d3.select("#maxweight").property("value");
+  var minheight = d3.select("#minheight").property("value");
+  var maxheight = d3.select("#maxheight").property("value");
 	console.log(gen);
 	console.log(type);
 
@@ -224,9 +228,21 @@ function filterGraph() {
 	if (gen != "all") {
 	  	filtered = filtered.filter(pokemon => pokemon.generation === parseInt(gen));
 	}
-  	if (type != "all") {
+  if (type != "all") {
 	  	filtered = filtered.filter(pokemon => (pokemon.type1 === type || pokemon.type2 === type));
 	}  
+  if (minweight) {
+      filtered = filtered.filter(pokemon => pokemon.weight_kg >= parseInt(minweight));
+  }
+  if (maxweight) {
+      filtered = filtered.filter(pokemon => pokemon.weight_kg <= parseInt(maxweight));
+  }
+  if (minheight) {
+      filtered = filtered.filter(pokemon => pokemon.height_m >= parseInt(minheight));
+  }
+  if (maxheight) {
+      filtered = filtered.filter(pokemon => pokemon.height_m <= parseInt(maxheight));
+  }
 
 	console.log(filtered);
 	// Empty old graph
@@ -241,6 +257,11 @@ function filterGraph() {
 
   var chartGroup = svgChart.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+  // Reset default axes
+  chosenXAxis = "weight_kg";
+  chosenYAxis = "height_m";
+
 
 	// Plot the filtered graph
 	plotGraph(filtered, svgChart, chartGroup);
@@ -281,7 +302,66 @@ function plotGraph(pokemonData, svg, chartGroup) {
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d[chosenYAxis]))
     .attr("r", 10)
-    .classed("stateCircle", true);
+    .attr("class", function(d) {
+      var circleClass = "stateCircle";
+      if (d.type1==="poison"){
+        circleClass = "poisonCircle";
+      }
+      else if (d.type1==="fire"){
+        circleClass = "fireCircle";
+      }
+      else if (d.type1==="grass"){
+        circleClass = "grassCircle";
+      }
+      else if (d.type1==="water"){
+        circleClass = "waterCircle";
+      }
+      else if (d.type1==="bug"){
+        circleClass = "bugCircle";
+      }
+      else if (d.type1==="normal"){
+        circleClass = "normalCircle";
+      }
+      else if (d.type1==="electric"){
+        circleClass = "electricCircle";
+      }
+      else if (d.type1==="ground"){
+        circleClass = "groundCircle";
+      }
+      else if (d.type1==="fairy"){
+        circleClass = "fairyCircle";
+      }
+      else if (d.type1==="fighting"){
+        circleClass = "fightingCircle";
+      }
+      else if (d.type1==="psychic"){
+        circleClass = "psychicCircle";
+      }
+      else if (d.type1==="rock"){
+        circleClass = "rockCircle";
+      }
+      else if (d.type1==="ghost"){
+        circleClass = "ghostCircle";
+      }
+      else if (d.type1==="ice"){
+        circleClass = "iceCircle";
+      }
+      else if (d.type1==="dragon"){
+        circleClass = "dragonCircle";
+      }
+      else if (d.type1==="dark"){
+        circleClass = "darkCircle";
+      }
+      else if (d.type1==="steel"){
+        circleClass = "steelCircle";
+      }
+      else if (d.type1==="flying"){
+        circleClass = "flyingCircle";
+      }
+      else;
+      return circleClass;
+    });
+//    .classed("stateCircle", true);
 
   // Create group for x-axis labels
   var xLabelsGroup = chartGroup.append("g")
