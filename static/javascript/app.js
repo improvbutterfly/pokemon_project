@@ -33,17 +33,20 @@ function bringRandom() {
 	
 	d3.event.preventDefault();
 
-		var rando = pokemonInfo[Math.floor(Math.random()*pokemonInfo.length)];
-		console.log(rando);
-			d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + rando.name + ".jpg");
-			d3.select("#pokemon-name").html(rando.name);
-			d3.select("#pokemon-entry").html(rando.entry);
-			d3.select("#gen").html(rando.generation);
-			d3.select("#height").html(rando.height_m);
-			d3.select("#weight").html(rando.weight_kg);
-			d3.select("#classification").html(rando.classfication);
-			d3.select("#type1").html(rando.type1);
-			d3.select("#type2").html(rando.type2);
+	var rando = pokemonInfo[Math.floor(Math.random()*pokemonInfo.length)];
+	console.log(rando);
+	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + rando.name + ".jpg");
+	d3.select("#pokemon-name").html(rando.name);
+	d3.select("#pokemon-entry").html(rando.entry);
+	d3.select("#_id").html(rando._id);
+	d3.select("#gen").html(rando.generation);
+	d3.select("#height").html(rando.height_m + " m");
+	d3.select("#weight").html(rando.weight_kg + " kg");
+	d3.select("#classification").html(rando.classfication);
+	d3.select("#type1").html(rando.type1);
+	d3.select("#type2").html(rando.type2);
+	d3.select("#hp").html(rando.hp);
+	d3.select("#speed").html(rando.speed);
 
 }
 
@@ -57,45 +60,80 @@ function filterGen() {
 
 	var filtered = pokemonInfo;
 
-	if (gen) {
-  	filter = filtered.filter(pokemon => pokemon.generation === gen)
 
-  	if (type) {
-  	rand = filter.filter(pokemon => pokemon.type1 === type)
+	if (gen != "all") {
+	  	filtered = filtered.filter(pokemon => pokemon.generation === parseInt(gen));
+	}
+  	if (type != "all") {
+  		filtered = filtered.filter(pokemon => pokemon.type1 === type || pokemon.type2 === type);
+  	}
   
-  	var rando = rand[Math.floor(Math.random()*rand.length)]}}
+  	var rando = filtered[Math.floor(Math.random()*filtered.length)];
 
   	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + rando.name + ".jpg");
-		d3.select("#pokemon-name").html(rando.name);
-		d3.select("#pokemon-entry").html(rando.entry);
-		d3.select("#gen").html(rando.generation);
-		d3.select("#height").html(rando.height_m);
-		d3.select("#weight").html(rando.weight_kg);
-		d3.select("#classification").html(rando.classfication);
-		d3.select("#type1").html(rando.type1);
-		d3.select("#type2").html(rando.type2);
+	d3.select("#pokemon-name").html(rando.name);
+	d3.select("#pokemon-entry").html(rando.entry);
+	d3.select("#_id").html(rando._id);
+	d3.select("#gen").html(rando.generation);
+	d3.select("#height").html(rando.height_m + " m");
+	d3.select("#weight").html(rando.weight_kg + " kg");
+	d3.select("#classification").html(rando.classfication);
+	d3.select("#type1").html(rando.type1);
+	d3.select("#type2").html(rando.type2);
+	d3.select("#hp").html(rando.hp);
+	d3.select("#speed").html(rando.speed);
 }
 
 
 function searchName() {
 
-  // Prevent the page from refreshing
-  d3.event.preventDefault();
+	// Prevent the page from refreshing
+	d3.event.preventDefault();
 
 	// Grab the pokemon name from the form
 	var pokemonName = d3.select("#input-name").property("value");
 	var filtered = pokemonInfo;
 	
-
+	var matched = false;
 	if (pokemonName){
-  	filter = filtered.filter(pokemon => pokemon.name === pokemonName);
-  	console.log(filter[0])}
+	  	filtered = filtered.filter(pokemon => pokemon.name === pokemonName);
+  		console.log(filtered[0]);
+  		if (filtered[0]){
+  			matched = true;
+  		}
+  	}
 	
-	// Update image and name using D3
-	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + pokemonName + ".jpg");
-			d3.select("#pokemon-name").html(filter[0].name);
-			d3.select("#pokemon-entry").html(filter[0].entry);
-			
+	// If name is found, update the stats
+	if (matched){
+		// Update image and name using D3
+		d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + pokemonName + ".jpg");
+		d3.select("#pokemon-name").html(filtered[0].name);
+		d3.select("#pokemon-entry").html(filtered[0].entry);
+		d3.select("#_id").html(filtered[0]._id);
+		d3.select("#gen").html(filtered[0].generation);
+		d3.select("#height").html(filtered[0].height_m + " m");
+		d3.select("#weight").html(filtered[0].weight_kg + " kg");
+		d3.select("#classification").html(filtered[0].classfication);
+		d3.select("#type1").html(filtered[0].type1);
+		d3.select("#type2").html(filtered[0].type2);
+		d3.select("#hp").html(filtered[0].hp);
+		d3.select("#speed").html(filtered[0].speed);
+	}
+	else {
+		// Print error, empty stats
+		d3.select("#pokemon-image").attr("src", "");
+		d3.select("#pokemon-name").html("Error");
+		d3.select("#pokemon-entry").html("'" + pokemonName + "'" + " does not exist in database. Try again.");
+		d3.select("#_id").html("");
+		d3.select("#gen").html("");
+		d3.select("#height").html("");
+		d3.select("#weight").html("");
+		d3.select("#classification").html("");
+		d3.select("#type1").html("");
+		d3.select("#type2").html("");
+		d3.select("#hp").html("");
+		d3.select("#speed").html("");
+	}
 }
 
 
@@ -128,12 +166,42 @@ function fusionTime() {
 }
 
 
+// Set up the drop-down menu for type
+function init() {
+//console.log(pokemonInfo);
+	// Create empty array for types
+	var types = ["all"];
 
+	// loop through pokemonInfo
+	for (var i = 0; i < pokemonInfo.length; i++){
 
+    var typeFound = false;
+    // Check if type is already in types array
+    for (var j = 0; j < types.length; j++){
+      if (types[j] === pokemonInfo[i].type1){
+        typeFound = true;
+        break;
+      }
+    }
+    if(!typeFound){
+      // Append unique types to list
+      types.push(pokemonInfo[i].type1);
+    }
+	}
 
+    // Print the type options
+    console.log(types);
+    d3.select("#type").selectAll("option")
+    .data(types)
+    .enter()
+    .append("option")
+    .attr("value", function(d){
+    	return d;
+    })
+    .html(function(d){
+    	return d;
+    });
 
+};
 
-
-
-
-
+init();
