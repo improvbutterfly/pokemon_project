@@ -10,12 +10,23 @@ form.on("submit", filterGraph);
 function init() {
 //console.log(pokemonInfo);
 	// Create empty array for types
-	var types = [];
+	var types = ["all"];
 
 	// loop through pokemonInfo
 	for (var i = 0; i < pokemonInfo.length; i++){
-		// Append unique types to list
-		types.push(pokemonInfo[i].type1);
+
+    var typeFound = false;
+    // Check if type is already in types array
+    for (var j = 0; j < types.length; j++){
+      if (types[j] === pokemonInfo[i].type1){
+        typeFound = true;
+        break;
+      }
+    }
+    if(!typeFound){
+      // Append unique types to list
+      types.push(pokemonInfo[i].type1);
+    }
 	}
 
 	// This needs work
@@ -167,7 +178,11 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 	    yLabel = `HP: ${d[chosenYAxis]}`;
 	  }
 	  
-      return (`<strong>Pok&eacute;mon Name: </strong>${d.name}<br>${yLabel}<br>${xLabel}`);
+      return (`<strong>Pok&eacute;mon Name: </strong>${d.name}<br>\
+        <strong>Generation: </strong>${d.generation}<br>\
+        <strong>Type 1: </strong>${d.type1}<br>\
+        <strong>Type 2: </strong>${d.type2}<br>\
+        ${yLabel}<br>${xLabel}`);
     });
 
   chartGroup.call(toolTip);
@@ -202,13 +217,20 @@ function filterGraph() {
 
 	var filtered = pokemonInfo;
 
+	console.log(filtered);
+
 	if (gen != "all") {
-	  	filtered = filtered.filter(pokemon => pokemon.generation === gen)
+	  	filtered = filtered.filter(pokemon => pokemon.generation === parseInt(gen));
 	}
-  	if (type) {
-	  	filtered = filtered.filter(pokemon => (pokemon.type1 === type || pokemon.type2 === type))
+  	if (type != "all") {
+	  	filtered = filtered.filter(pokemon => (pokemon.type1 === type || pokemon.type2 === type));
 	}  
-	// Plot the graph
+
+	console.log(filtered);
+	// Empty old graph
+	svg.html("");
+
+	// Plot the filtered graph
 	plotGraph(filtered);
 }
 
