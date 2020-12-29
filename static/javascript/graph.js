@@ -43,7 +43,7 @@ function init() {
     });
 
 	// plot graph
-	plotGraph(pokemonInfo);
+	plotGraph(pokemonInfo, svgChart, chartGroup);
 
 
 };
@@ -51,14 +51,14 @@ function init() {
 
 // Set up the chart
 //= ================================
-var svgWidth = 700;
+var svgWidth = 900;
 var svgHeight = 500;
 
 var margin = {
   top: 20,
   right: 40,
   bottom: 85,
-  left: 85
+  left: 95
 };
 
 var width = svgWidth - margin.left - margin.right;
@@ -68,13 +68,14 @@ var height = svgHeight - margin.top - margin.bottom;
 // append an SVG group that will hold our chart,
 // and shift the latter by left and top margins.
 // =================================
-var svg = d3
+var svgChart = d3
   .select("#scatter")
   .append("svg")
+  .attr("class", "pokemon-chart")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
 
-var chartGroup = svg.append("g")
+var chartGroup = svgChart.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Create variable for what to plot on each axis, so we can choose what to plot later
@@ -86,7 +87,7 @@ var chosenYAxis = "height_m";
 function xScale(pokemonData, chosenXAxis) {
   // create scales
   var xLinearScale = d3.scaleLinear()
-    .domain([d3.min(pokemonData, d => d[chosenXAxis] * 0.92), d3.max(pokemonData, d => d[chosenXAxis] * 1.05)])
+    .domain([d3.min(pokemonData, d => d[chosenXAxis] * -0.04), d3.max(pokemonData, d => d[chosenXAxis] * 1.05)])
     .range([0, width]);
 
   return xLinearScale;
@@ -97,7 +98,7 @@ function xScale(pokemonData, chosenXAxis) {
 function yScale(pokemonData, chosenYAxis) {
   // create scales
   var yLinearScale = d3.scaleLinear()
-    .domain([d3.min(pokemonData, d => d[chosenYAxis] * 0.8), d3.max(pokemonData, d => d[chosenYAxis] * 1.1)])
+    .domain([d3.min(pokemonData, d => d[chosenYAxis] * -0.04), d3.max(pokemonData, d => d[chosenYAxis] * 1.1)])
     .range([height, 0]);
 
   return yLinearScale;
@@ -179,6 +180,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 	  }
 	  
       return (`<strong>Pok&eacute;mon Name: </strong>${d.name}<br>\
+        <strong>Pok&eacute;dex #: </strong>${d._id}<br>\
         <strong>Generation: </strong>${d.generation}<br>\
         <strong>Type 1: </strong>${d.type1}<br>\
         <strong>Type 2: </strong>${d.type2}<br>\
@@ -228,14 +230,24 @@ function filterGraph() {
 
 	console.log(filtered);
 	// Empty old graph
-	svg.html("");
+	svgChart.remove();
+
+  svgChart = d3
+  .select("#scatter")
+  .append("svg")
+  .attr("class", "pokemon-chart")
+  .attr("width", svgWidth)
+  .attr("height", svgHeight);
+
+  var chartGroup = svgChart.append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 	// Plot the filtered graph
-	plotGraph(filtered);
+	plotGraph(filtered, svgChart, chartGroup);
 }
 
 // Function to draw the graph 
-function plotGraph(pokemonData) {
+function plotGraph(pokemonData, svg, chartGroup) {
   console.log(pokemonData[1]);
 	// Plot the graph
 

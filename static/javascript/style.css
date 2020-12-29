@@ -1,9 +1,18 @@
 nav {
   background-color: rgb(233, 211, 85);
-  font-size: 70px;
   font-weight: bold;
   color: black;
   text-align: center;
+}
+
+#footer {
+  background-color: rgb(233, 211, 85);
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
 }
    
 .topbar-center-logo-mobile .menu-icon {
@@ -17,7 +26,7 @@ nav {
   width: 100%;
   text-align: center;
   font-weight: bolder;
-  font-size: 12pt;
+  font-size: 14pt;
   margin: 10px;
 }
 
@@ -42,7 +51,14 @@ h4 {
   text-align: center;
 }
 
-body {color :cornsilk ;}
+body {
+  background-color: cornsilk;
+}
+
+.container {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 
 tbody {
   padding: 15px;
@@ -65,12 +81,15 @@ td {
   align-content: center;
 }
 
-.pokemoncard{
+.pokemoncard {
+  text-align: center;
   border-color: black;
   border-style: double;
   width: fit-content;
   background-color: wheat;
   margin: auto;
+  margin-top: 0px;
+  margin-bottom: 20px;
   padding: 20px;
   color: black;
 }
@@ -96,11 +115,13 @@ td {
  display: inline-block;
 }
 
-#filter-gen { background-color: #e7e7e7; 
+#filter-gen, #filter-graph { background-color: #e7e7e7; 
  color: black;
  align-content: center;
  display: inline-block;
 }
+
+
 
 .summary {
   margin: 20px;
@@ -109,6 +130,7 @@ td {
 }
 
 
+/* Everything below here is needed for the D3 graph on graph.html */
 .aText {
   font-family: sans-serif;
   font-size: 16px;
@@ -122,7 +144,6 @@ td {
   text-anchor: middle;
 }
 
-/* Everything below here is needed for the D3 graph on graph.html */
 .inactive {
   font-weight: lighter;
   fill: #c9c9c9;
@@ -130,8 +151,12 @@ td {
   text-anchor: middle;
 }
 
+.inactive {
+  outline-color: red;  
+}
+
 .inactive:hover {
-  fill: #000;
+  stroke: #000;
   cursor: pointer;
 }
 
@@ -160,6 +185,14 @@ td {
   text-transform: capitalize;
   background: rgba(0, 0, 0, 0.8);
   border-radius: 4px;
+}
+
+.pokemon-chart path, line, text {
+  stroke: black;
+}
+
+#scatter {
+  padding-bottom: 20px;
 }
 
 /* Mobile Rules */
