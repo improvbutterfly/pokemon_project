@@ -26,7 +26,7 @@ def fight():
 
 @app.route("/breed.html")
 def breed():
-	cursor = mongo.db.info.find({})
+	cursor = mongo.db.info.find({"generation": 1})
 	pokemon_info = loads(dumps(cursor))
 	
 

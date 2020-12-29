@@ -91,7 +91,7 @@ function searchName() {
 	d3.event.preventDefault();
 
 	// Grab the pokemon name from the form
-	var pokemonName = d3.select("#input-name").property("value");
+	var pokemonName = capitalize(d3.select("#input-name").property("value"));
 	var filtered = pokemonInfo;
 	
 	var matched = false;
@@ -123,7 +123,8 @@ function searchName() {
 		// Print error, empty stats
 		d3.select("#pokemon-image").attr("src", "");
 		d3.select("#pokemon-name").html("Error");
-		d3.select("#pokemon-entry").html("'" + pokemonName + "'" + " does not exist in database. Try again.");
+		d3.select("#pokemon-entry").html("'" + pokemonName + "'" + " does not exist in database, or is not \
+			in the generation filter used. Try again.");
 		d3.select("#_id").html("");
 		d3.select("#gen").html("");
 		d3.select("#height").html("");
@@ -143,19 +144,34 @@ function searchName2() {
   d3.event.preventDefault();
 
 	// Grab the pokemon name from the form
-	var pokemonName2 = d3.select("#input-name2").property("value");
+	var pokemonName2 = capitalize(d3.select("#input-name2").property("value"));
 	var filtered2 = pokemonInfo;
 	
 
-	if (pokemonName2){
-  	filter2 = filtered2.filter(pokemon => pokemon.name === pokemonName2);
-  	console.log(filter2[0])}
+	var matched = false;
 	
-	// Update image and name using D3
-	d3.select("#pokemon-image2").attr("src", "static/images/pokemon/" + pokemonName2 + ".jpg");
-	d3.select("#pokemon-name2").html(filter2[0].name);
-	d3.select("#pokemon-entry2").html(filter2[0].entry);
-		
+	if (pokemonName2){
+	  	filter2 = filtered2.filter(pokemon => pokemon.name === pokemonName2);
+	  	console.log(filter2[0])
+		if (filter2[0]){
+  			matched = true;
+  		}
+  	}
+	
+	// If name is found, update the stats
+	if (matched){
+		// Update image and name using D3
+		d3.select("#pokemon-image2").attr("src", "static/images/pokemon/" + pokemonName2 + ".jpg");
+		d3.select("#pokemon-name2").html(filter2[0].name);
+		d3.select("#pokemon-entry2").html(filter2[0].entry);
+	}
+	else {
+		// Print error, empty stats
+		d3.select("#pokemon-image2").attr("src", "");
+		d3.select("#pokemon-name2").html("Error");
+		d3.select("#pokemon-entry2").html("'" + pokemonName2 + "'" + " does not exist in database, or is not \
+			in the generation filter used. Try again.");
+	}
 }
 
 function fusionTime() {
@@ -165,6 +181,10 @@ function fusionTime() {
 
 }
 
+// function to make sure pokemon name search string is formatted correctly
+function capitalize(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
 
 // Set up the drop-down menu for type
 function init() {
