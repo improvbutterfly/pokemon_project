@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="static/javascript/style.css">
 </head>
 
-<body style="background-color: rgb(250, 248, 241);">
+<body>
 {% block javascript %}
 <script>
     var pokemonInfo = {{ info | tojson }};
@@ -19,13 +19,14 @@
 {% endblock %}
 <script src="static/javascript/navbar.js"></script>
 
-<h1>Pok&eacute;mon:</h1> 
-<h2>Gotta Catch 'Em All</h2><br>    
+<h1>Explore Pok&eacute;mon Stats</h1> 
 
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-12">
-		<div class="summary">Scatter Plot graphing pok&eacute;mon stats. Mouse over on the circles to view each pok&eacute;mon's info. Filter by generation and/or pok&eacute;mon type.</div>
+		<div class="summary">Mouse over on the circles to view each pok&eacute;mon's info.<br />
+		Below the graph, you may filter by generation, pok&eacute;mon type, height, and weight.<br />
+		Circles are color-coded by the pok&eacutemon's first type.</div>
       </div>
     </div>
     <div class="row">
@@ -62,7 +63,23 @@
 	                </select>
 	              </li>
 	              <li class="filter list-group-item">
-	          <button id="filter-graph" type="submit" class="btn btn-default">Filter by Type and Gen</button>
+	                <label for="minweight">Min Weight (kg)</label>
+                    <input class="form-control" id="minweight" type="text" placeholder="0">
+	              </li>
+	              <li class="filter list-group-item">
+	                <label for="maxweight">Max Weight (kg)</label>
+                    <input class="form-control" id="maxweight" type="text" placeholder="1000">
+	              </li>
+	              <li class="filter list-group-item">
+	                <label for="minheight">Min Height (m)</label>
+                    <input class="form-control" id="minheight" type="text" placeholder="0">
+	              </li>
+	              <li class="filter list-group-item">
+	                <label for="maxheight">Max Height (m)</label>
+                    <input class="form-control" id="maxheight" type="text" placeholder="10">
+	              </li>
+	              <li class="filter list-group-item">
+	          <button id="filter-graph" type="submit" class="btn btn-default">Filter Graph</button>
 	              </li>
 	          </ul>
 	        </form>

@@ -45,7 +45,16 @@
                       </li>
                       <li class="filter list-group-item">
                         <label for="generation">Generation</label>
-                        <input class="form-control" id="generation" type="text" placeholder="1">
+                        <select class="form-control" id="generation" name="generation">
+                          <option value="all">all</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                        </select>
                       </li>
                       <li class="filter list-group-item">
                         <label for="type">Pok&eacute;mon Type</label>
@@ -69,6 +78,10 @@
                 <table>
                   <tbody>
                     <tr>
+                        <th>Pok&eacute;dex #:</td>
+                        <td id="_id"></td>
+                    </tr>
+                    <tr>
                         <th>Gen:</td>
                         <td id="gen"></td>
                     </tr>
@@ -91,6 +104,14 @@
                     <tr>
                         <th>Weight:</td>
                         <td id="weight"></td>
+                    </tr>
+                    <tr>
+                        <th>HP:</td>
+                        <td id="hp"></td>
+                    </tr>
+                    <tr>
+                        <th>Speed:</td>
+                        <td id="speed"></td>
                     </tr>
                 </tbody>
             </table>
