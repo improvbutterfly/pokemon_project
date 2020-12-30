@@ -2,6 +2,9 @@
 // Select random pokemon
 var crazy = d3.select("#click-me");
 
+// Pokedex button
+var pokedexButton = d3.select("#filter-pokedex");
+
 // Select the button
 var button = d3.select("#filter-btn");
 
@@ -19,6 +22,8 @@ var fusion = d3.select("#fusion")
 // Create event handlers 
 
 crazy.on("click", bringRandom);
+
+pokedexButton.on("click", searchPokedex);
 
 button.on("click", searchName);
 
@@ -57,6 +62,7 @@ function filterGen() {
 
 	var gen = d3.select("#generation").property("value");
 	var type = d3.select("#type").property("value");
+	var legendary = d3.select("#legendary").property("value");
 
 	var filtered = pokemonInfo;
 
@@ -66,6 +72,9 @@ function filterGen() {
 	}
   	if (type != "all") {
   		filtered = filtered.filter(pokemon => pokemon.type1 === type || pokemon.type2 === type);
+  	}
+  	if (legendary != "all") {
+  		filtered = filtered.filter(pokemon => pokemon.is_legendary === parseInt(legendary));
   	}
   
   	var rando = filtered[Math.floor(Math.random()*filtered.length)];
@@ -82,6 +91,62 @@ function filterGen() {
 	d3.select("#type2").html(rando.type2);
 	d3.select("#hp").html(rando.hp);
 	d3.select("#speed").html(rando.speed);
+}
+
+
+function searchPokedex() {
+
+	// Prevent the page from refreshing
+	d3.event.preventDefault();
+
+	// Grab the pokemon name from the form
+	var pokedex = parseInt(d3.select("#input-pokedex").property("value"));
+	var filtered = pokemonInfo;
+	var pokemonName;
+	console.log(pokedex);
+	
+	var matched = false;
+	if (pokedex){
+	  	filtered = filtered.filter(pokemon => pokemon._id === pokedex);
+  		console.log(filtered[0]);
+  		if (filtered[0]){
+  			matched = true;
+  			pokemonName = filtered[0].name;
+  		}
+  	}
+	
+	// If name is found, update the stats
+	if (matched){
+		// Update image and name using D3
+		d3.select("#pokemon-image")
+		.attr("src", "static/images/pokemon/" + imageString(pokemonName) + ".jpg");
+		d3.select("#pokemon-name").html(filtered[0].name);
+		d3.select("#pokemon-entry").html(filtered[0].entry);
+		d3.select("#_id").html(filtered[0]._id);
+		d3.select("#gen").html(filtered[0].generation);
+		d3.select("#height").html(filtered[0].height_m + " m");
+		d3.select("#weight").html(filtered[0].weight_kg + " kg");
+		d3.select("#classification").html(filtered[0].classfication);
+		d3.select("#type1").html(filtered[0].type1);
+		d3.select("#type2").html(filtered[0].type2);
+		d3.select("#hp").html(filtered[0].hp);
+		d3.select("#speed").html(filtered[0].speed);
+	}
+	else {
+		// Print error, empty stats
+		d3.select("#pokemon-image").attr("src", "");
+		d3.select("#pokemon-name").html("Error");
+		d3.select("#pokemon-entry").html("'" + pokedex + "'" + " does not exist in database. Try again.");
+		d3.select("#_id").html("");
+		d3.select("#gen").html("");
+		d3.select("#height").html("");
+		d3.select("#weight").html("");
+		d3.select("#classification").html("");
+		d3.select("#type1").html("");
+		d3.select("#type2").html("");
+		d3.select("#hp").html("");
+		d3.select("#speed").html("");
+	}
 }
 
 

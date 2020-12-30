@@ -110,16 +110,11 @@ td {
  color: black;
 }
 
-#filter-btn { background-color: #e7e7e7; 
- color: black;
- align-content: center;
- display: inline-block;
-}
-
-#filter-gen, #filter-graph { background-color: #e7e7e7; 
- color: black;
- align-content: center;
- display: inline-block;
+#filter-btn, #filter-gen, #filter-graph, #filter-pokedex { 
+  background-color: #e7e7e7; 
+  color: black;
+  align-content: center;
+  display: inline-block;
 }
 
 
