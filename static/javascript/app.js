@@ -184,17 +184,28 @@ function fusionTime() {
 
 // function to make sure pokemon name search string is formatted correctly
 function capitalize(string) {
+	// Capitalize the first letter of each word
 	var separateWord = string.toLowerCase().split(' ');
 	for (var i = 0; i < separateWord.length; i++){
 		separateWord[i] = separateWord[i].charAt(0).toUpperCase() + separateWord[i].slice(1).toLowerCase();
 	}
-	return separateWord.join(' ');
+	var newString = separateWord.join(' ').split('');
+
+	// Now check if there is a - in the name, because the following character needs to be capitalized.
+	for (var j = 0; j < newString.length-1; j++){
+		if (newString[j] === '-'){
+			newString[j+1] = newString[j+1].toUpperCase();
+		}
+	}
+	return newString.join('');
 }
 
 // Image strings are letters only, plus - in place of a space. This function fixes the 
 //name string to display the images properly.
 function imageString(string) {
 	string = string.replace(/[\.']/, '');
+	string = string.replace(/♀/, '-f'); // Replace female character with '-f'
+	string = string.replace(/♂/, '-m'); // Replace male character with '-f'
 	var separateWord = string.toLowerCase().split(' ');
 	for (var i = 0; i < separateWord.length; i++){
 		if (i === 0){
