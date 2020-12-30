@@ -35,7 +35,7 @@ function bringRandom() {
 
 	var rando = pokemonInfo[Math.floor(Math.random()*pokemonInfo.length)];
 	console.log(rando);
-	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + rando.name + ".jpg");
+	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + imageString(rando.name) + ".jpg");
 	d3.select("#pokemon-name").html(rando.name);
 	d3.select("#pokemon-entry").html(rando.entry);
 	d3.select("#_id").html(rando._id);
@@ -70,7 +70,7 @@ function filterGen() {
   
   	var rando = filtered[Math.floor(Math.random()*filtered.length)];
 
-  	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + rando.name + ".jpg");
+  	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + imageString(rando.name) + ".jpg");
 	d3.select("#pokemon-name").html(rando.name);
 	d3.select("#pokemon-entry").html(rando.entry);
 	d3.select("#_id").html(rando._id);
@@ -106,7 +106,8 @@ function searchName() {
 	// If name is found, update the stats
 	if (matched){
 		// Update image and name using D3
-		d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + pokemonName + ".jpg");
+		d3.select("#pokemon-image")
+		.attr("src", "static/images/pokemon/" + imageString(pokemonName) + ".jpg");
 		d3.select("#pokemon-name").html(filtered[0].name);
 		d3.select("#pokemon-entry").html(filtered[0].entry);
 		d3.select("#_id").html(filtered[0]._id);
@@ -161,7 +162,7 @@ function searchName2() {
 	// If name is found, update the stats
 	if (matched){
 		// Update image and name using D3
-		d3.select("#pokemon-image2").attr("src", "static/images/pokemon/" + pokemonName2 + ".jpg");
+		d3.select("#pokemon-image2").attr("src", "static/images/pokemon/" + imageString(pokemonName2) + ".jpg");
 		d3.select("#pokemon-name2").html(filter2[0].name);
 		d3.select("#pokemon-entry2").html(filter2[0].entry);
 	}
@@ -183,9 +184,28 @@ function fusionTime() {
 
 // function to make sure pokemon name search string is formatted correctly
 function capitalize(string) {
-	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+	var separateWord = string.toLowerCase().split(' ');
+	for (var i = 0; i < separateWord.length; i++){
+		separateWord[i] = separateWord[i].charAt(0).toUpperCase() + separateWord[i].slice(1).toLowerCase();
+	}
+	return separateWord.join(' ');
 }
 
+// Image strings are letters only, plus - in place of a space. This function fixes the 
+//name string to display the images properly.
+function imageString(string) {
+	string = string.replace(/[\.']/, '');
+	var separateWord = string.toLowerCase().split(' ');
+	for (var i = 0; i < separateWord.length; i++){
+		if (i === 0){
+			separateWord[i] = separateWord[i].charAt(0).toUpperCase() + separateWord[i].slice(1).toLowerCase();
+		}
+		else {
+			separateWord[i] = separateWord[i].toLowerCase();
+		}
+	}
+	return separateWord.join('-');
+}
 // Set up the drop-down menu for type
 function init() {
 //console.log(pokemonInfo);
