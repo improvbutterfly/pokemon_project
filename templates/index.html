@@ -21,8 +21,8 @@
 
 <h1>Pok&eacute;mon:</h1> 
 <h2>Gotta Catch 'Em All</h2><br>    
-<h4> Please select your pok&eacute;mon by typing in the Pok&eacute;mon's name </h4>
-<h4> You can randomly select any pok&eacute;mon, or filter by generation and type of pok&eacute;mon.</h4><br>
+<h4> Please select your pok&eacute;mon by typing in the Pok&eacute;mon's name or pok&eacute;dex number.</h4>
+<h4> You can randomly select any pok&eacute;mon, or filter by generation, type of pok&eacute;mon, or even if it is legendary!</h4><br>
 
 <div class="container">
     <div class="row">
@@ -44,6 +44,13 @@
                         <button id="filter-btn" type="submit" class="btn btn-default">Search by Name</button>
                       </li>
                       <li class="filter list-group-item">
+                        <label for="input-pokedex">Pok&eacute;dex Number (max value is 801)</label>
+                        <input class="form-control" id="input-pokedex" type="text" placeholder="801">
+                      </li>
+                      <li class="filter list-group-item">
+                        <button id="filter-pokedex" type="submit" class="btn btn-default">Search by Pok&eacute;dex #</button>
+                      </li>
+                      <li class="filter list-group-item">
                         <label for="generation">Generation</label>
                         <select class="form-control" id="generation" name="generation">
                           <option value="all">all</option>
@@ -63,7 +70,15 @@
                         </select>
                       </li>
                       <li class="filter list-group-item">
-                  <button id="filter-gen" type="submit" class="btn btn-default">Filter by Type and Gen.</button>
+                        <label for="legendary">Legendary?</label>
+                        <select class="form-control" id="legendary" name="legendary">
+                          <option value="all">Doesn't matter</option>
+                          <option value="1">Yes</option>
+                          <option value="0">No</option>
+                        </select>
+                      </li>
+                      <li class="filter list-group-item">
+                  <button id="filter-gen" type="submit" class="btn btn-default">Filter Random Pok&eacute;mon</button>
                       </li>
                   </ul>
                 </form>
