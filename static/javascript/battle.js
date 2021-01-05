@@ -24,10 +24,86 @@ typeFilter.on("change", updateNames);
 
 function viewStats() {
 
+	// Prevent the page from refreshing
+	d3.event.preventDefault();
+
+	// Grab the pokemon name from the form
+	var pokemonName = capitalize(d3.select("#pokemon-name-list").property("value"));
+	var filtered = pokemonInfo;
+	
+	var matched = false;
+	if (pokemonName){
+	  	filtered = filtered.filter(pokemon => pokemon.name === pokemonName);
+  		console.log(filtered[0]);
+  		if (filtered[0]){
+  			matched = true;
+  		}
+  	}
+	
+	// If name is found, update the stats
+	if (matched){
+		// create variable to use for id to get correct battle data
+		var battleRow = filtered[0]._id-1;
+		// Update image and name using D3
+		d3.select("#chosen_image")
+		.attr("src", "static/images/pokemon/" + imageString(pokemonName) + ".jpg");
+		d3.select("#chosen_name").html(filtered[0].name);
+		d3.select("#chosen_entry").html(filtered[0].entry);
+		d3.select("#chosen_id").html(filtered[0]._id);
+		d3.select("#chosen_gen").html(filtered[0].generation);
+		d3.select("#chosen_height").html(filtered[0].height_m + " m");
+		d3.select("#chosen_weight").html(filtered[0].weight_kg + " kg");
+		d3.select("#chosen_classification").html(filtered[0].classfication);
+		d3.select("#chosen_type1").html(filtered[0].type1);
+		d3.select("#chosen_type2").html(filtered[0].type2);
+		d3.select("#chosen_hp").html(filtered[0].hp);
+		d3.select("#chosen_speed").html(filtered[0].speed);
+		d3.select("#chosen_attack").html(battleInfo[battleRow].attack);
+		d3.select("#chosen_defense").html(battleInfo[battleRow].defense);
+		d3.select("#chosen_sp_attack").html(battleInfo[battleRow].sp_attack);
+		d3.select("#chosen_sp_defense").html(battleInfo[battleRow].sp_defense);
+
+		console.log(battleInfo[battleRow].abilities);
+		var abilitiesList = battleInfo[battleRow].abilities;
+		d3.select("#chosen_abilities").html(function(){
+			abilitiesList
+			var returnString = "";
+			for (var i = 0; i < abilitiesList.length; i++){
+				if (i+1 < abilitiesList.length){
+					returnString += abilitiesList[i] + ", "
+				}
+				else {
+					returnString += abilitiesList[i]
+				}
+			}
+    		return returnString;
+		});
+	}
+	else {
+		// Print error, empty stats
+		d3.select("#chosen_image").attr("src", "");
+		d3.select("#chosen_name").html("Error");
+		d3.select("#chosen_entry").html("'" + pokemonName + "'" + " does not exist in database, or is not \
+			in the generation filter used. Try again.");
+		d3.select("#chosen_id").html("");
+		d3.select("#chosen_gen").html("");
+		d3.select("#chosen_height").html("");
+		d3.select("#chosen_weight").html("");
+		d3.select("#chosen_classification").html("");
+		d3.select("#chosen_type1").html("");
+		d3.select("#chosen_type2").html("");
+		d3.select("#chosen_hp").html("");
+		d3.select("#chosen_speed").html("");
+		d3.select("#chosen_attack").html("");
+		d3.select("#chosen_defense").html("");
+		d3.select("#chosen_sp_attack").html("");
+		d3.select("#chosen_sp_defense").html("");
+		d3.select("#chosen_abilities").html("");
+	}
 }
 
 function updateNames() {
-	
+	var filteredPokemon = filterGen();
 }
 
 function filterGen() {
@@ -68,62 +144,6 @@ function filterGen() {
 }
 
 
-function searchPokedex() {
-
-	// Prevent the page from refreshing
-	d3.event.preventDefault();
-
-	// Grab the pokemon name from the form
-	var pokedex = parseInt(d3.select("#input-pokedex").property("value"));
-	var filtered = pokemonInfo;
-	var pokemonName;
-	console.log(pokedex);
-	
-	var matched = false;
-	if (pokedex){
-	  	filtered = filtered.filter(pokemon => pokemon._id === pokedex);
-  		console.log(filtered[0]);
-  		if (filtered[0]){
-  			matched = true;
-  			pokemonName = filtered[0].name;
-  		}
-  	}
-	
-	// If name is found, update the stats
-	if (matched){
-		// Update image and name using D3
-		d3.select("#pokemon-image")
-		.attr("src", "static/images/pokemon/" + imageString(pokemonName) + ".jpg");
-		d3.select("#pokemon-name").html(filtered[0].name);
-		d3.select("#pokemon-entry").html(filtered[0].entry);
-		d3.select("#_id").html(filtered[0]._id);
-		d3.select("#gen").html(filtered[0].generation);
-		d3.select("#height").html(filtered[0].height_m + " m");
-		d3.select("#weight").html(filtered[0].weight_kg + " kg");
-		d3.select("#classification").html(filtered[0].classfication);
-		d3.select("#type1").html(filtered[0].type1);
-		d3.select("#type2").html(filtered[0].type2);
-		d3.select("#hp").html(filtered[0].hp);
-		d3.select("#speed").html(filtered[0].speed);
-	}
-	else {
-		// Print error, empty stats
-		d3.select("#pokemon-image").attr("src", "");
-		d3.select("#pokemon-name").html("Error");
-		d3.select("#pokemon-entry").html("'" + pokedex + "'" + " does not exist in database. Try again.");
-		d3.select("#_id").html("");
-		d3.select("#gen").html("");
-		d3.select("#height").html("");
-		d3.select("#weight").html("");
-		d3.select("#classification").html("");
-		d3.select("#type1").html("");
-		d3.select("#type2").html("");
-		d3.select("#hp").html("");
-		d3.select("#speed").html("");
-	}
-}
-
-
 function searchName() {
 
 	// Prevent the page from refreshing
@@ -144,6 +164,9 @@ function searchName() {
 	
 	// If name is found, update the stats
 	if (matched){
+		// create variable to use for id to get correct battle data
+		var battleRow = filtered[0]._id-1;
+
 		// Update image and name using D3
 		d3.select("#pokemon-image")
 		.attr("src", "static/images/pokemon/" + imageString(pokemonName) + ".jpg");
@@ -158,6 +181,26 @@ function searchName() {
 		d3.select("#type2").html(filtered[0].type2);
 		d3.select("#hp").html(filtered[0].hp);
 		d3.select("#speed").html(filtered[0].speed);
+		d3.select("#attack").html(battleInfo[battleRow].attack);
+		d3.select("#defense").html(battleInfo[battleRow].defense);
+		d3.select("#sp_attack").html(battleInfo[battleRow].sp_attack);
+		d3.select("#sp_defense").html(battleInfo[battleRow].sp_defense);
+
+		console.log(battleInfo[battleRow].abilities);
+		var abilitiesList = battleInfo[battleRow].abilities;
+		d3.select("#abilities").html(function(){
+			abilitiesList
+			var returnString = "";
+			for (var i = 0; i < abilitiesList.length; i++){
+				if (i+1 < abilitiesList.length){
+					returnString += abilitiesList[i] + ", "
+				}
+				else {
+					returnString += abilitiesList[i]
+				}
+			}
+    		return returnString;
+		});
 	}
 	else {
 		// Print error, empty stats
@@ -174,52 +217,14 @@ function searchName() {
 		d3.select("#type2").html("");
 		d3.select("#hp").html("");
 		d3.select("#speed").html("");
+		d3.select("#attack").html("");
+		d3.select("#defense").html("");
+		d3.select("#sp_attack").html("");
+		d3.select("#sp_defense").html("");
+		d3.select("#abilities").html("");
 	}
 }
 
-
-function searchName2() {
-
-  // Prevent the page from refreshing
-  d3.event.preventDefault();
-
-	// Grab the pokemon name from the form
-	var pokemonName2 = capitalize(d3.select("#input-name2").property("value"));
-	var filtered2 = pokemonInfo;
-	
-
-	var matched = false;
-	
-	if (pokemonName2){
-	  	filter2 = filtered2.filter(pokemon => pokemon.name === pokemonName2);
-	  	console.log(filter2[0])
-		if (filter2[0]){
-  			matched = true;
-  		}
-  	}
-	
-	// If name is found, update the stats
-	if (matched){
-		// Update image and name using D3
-		d3.select("#pokemon-image2").attr("src", "static/images/pokemon/" + imageString(pokemonName2) + ".jpg");
-		d3.select("#pokemon-name2").html(filter2[0].name);
-		d3.select("#pokemon-entry2").html(filter2[0].entry);
-	}
-	else {
-		// Print error, empty stats
-		d3.select("#pokemon-image2").attr("src", "");
-		d3.select("#pokemon-name2").html("Error");
-		d3.select("#pokemon-entry2").html("'" + pokemonName2 + "'" + " does not exist in database, or is not \
-			in the generation filter used. Try again.");
-	}
-}
-
-function fusionTime() {
-
-	window.open("https://pokemon.alexonsager.net");
-
-
-}
 
 // function to make sure pokemon name search string is formatted correctly
 function capitalize(string) {
