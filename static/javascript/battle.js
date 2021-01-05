@@ -275,13 +275,15 @@ function searchName() {
 		console.log(battleFilter);
 
 		// This extra one is needed in cases where, for example, there is no secondary type for 
-		// opponent's pokemon, and/or there are no "0.25" level strong against that pokemon (e.g. Ditto)
+		// opponent's pokemon, and/or there are no matching effectiveness values against that pokemon
+		// (This may be common for "extra super effective '0'" or "super weak '4'")
 		if (battleFilter.length === 0){
 			battleFilter = battleInfo.filter(function(pokemon){
 				// Search by first type again
-				againstType = "against_" + filtered[0].type1;
+				//againstType = "against_" + filtered[0].type1;
 				//console.log(pokemon[againstType]);
-				return pokemon[againstType] <= 0.5;
+				d3.select("#chosen_entry").html("Couldn't find pok&eacute;mon with that effectiveness rating.");
+				return 0;
 			});
 		}
 		console.log(battleFilter);
