@@ -90,25 +90,53 @@ function viewStats() {
 	}
 	else {
 		// Print error, empty stats
-		d3.select("#chosen_image").attr("src", "");
+		resetChosenPokemon();
 		d3.select("#chosen_name").html("Error");
 		d3.select("#chosen_entry").html("'" + pokemonName + "'" + " does not exist in database, or is not \
 			in the generation filter used. Try again.");
-		d3.select("#chosen_id").html("");
-		d3.select("#chosen_gen").html("");
-		d3.select("#chosen_height").html("");
-		d3.select("#chosen_weight").html("");
-		d3.select("#chosen_classification").html("");
-		d3.select("#chosen_type1").html("");
-		d3.select("#chosen_type2").html("");
-		d3.select("#chosen_hp").html("");
-		d3.select("#chosen_speed").html("");
-		d3.select("#chosen_attack").html("");
-		d3.select("#chosen_defense").html("");
-		d3.select("#chosen_sp_attack").html("");
-		d3.select("#chosen_sp_defense").html("");
-		d3.select("#chosen_abilities").html("");
 	}
+}
+
+function resetChosenPokemon(){
+	// Empty stats
+	d3.select("#chosen_image").attr("src", "");
+	d3.select("#chosen_name").html("Choose a Pok&eacute;mon");
+	d3.select("#chosen_entry").html("");
+	d3.select("#chosen_id").html("");
+	d3.select("#chosen_gen").html("");
+	d3.select("#chosen_height").html("");
+	d3.select("#chosen_weight").html("");
+	d3.select("#chosen_classification").html("");
+	d3.select("#chosen_type1").html("");
+	d3.select("#chosen_type2").html("");
+	d3.select("#chosen_hp").html("");
+	d3.select("#chosen_speed").html("");
+	d3.select("#chosen_attack").html("");
+	d3.select("#chosen_defense").html("");
+	d3.select("#chosen_sp_attack").html("");
+	d3.select("#chosen_sp_defense").html("");
+	d3.select("#chosen_abilities").html("");
+}
+
+function resetOpponentPokemon(){
+	// Empty stats
+	d3.select("#pokemon-image").attr("src", "");
+	d3.select("#pokemon-name").html("Choose a Pok&eacute;mon");
+	d3.select("#pokemon-entry").html("");
+	d3.select("#_id").html("");
+	d3.select("#gen").html("");
+	d3.select("#height").html("");
+	d3.select("#weight").html("");
+	d3.select("#classification").html("");
+	d3.select("#type1").html("");
+	d3.select("#type2").html("");
+	d3.select("#hp").html("");
+	d3.select("#speed").html("");
+	d3.select("#attack").html("");
+	d3.select("#defense").html("");
+	d3.select("#sp_attack").html("");
+	d3.select("#sp_defense").html("");
+	d3.select("#abilities").html("");
 }
 
 function updateNames() {
@@ -162,6 +190,7 @@ function searchName() {
 
 	// Prevent the page from refreshing
 	d3.event.preventDefault();
+	resetChosenPokemon();
 
 	// Grab the pokemon name from the form
 	var pokemonName = capitalize(d3.select("#input-name").property("value"));
@@ -246,13 +275,15 @@ function searchName() {
 		console.log(battleFilter);
 
 		// This extra one is needed in cases where, for example, there is no secondary type for 
-		// opponent's pokemon, and/or there are no "0.25" level strong against that pokemon (e.g. Ditto)
+		// opponent's pokemon, and/or there are no matching effectiveness values against that pokemon
+		// (This may be common for "extra super effective '0'" or "super weak '4'")
 		if (battleFilter.length === 0){
 			battleFilter = battleInfo.filter(function(pokemon){
 				// Search by first type again
-				againstType = "against_" + filtered[0].type1;
+				//againstType = "against_" + filtered[0].type1;
 				//console.log(pokemon[againstType]);
-				return pokemon[againstType] <= 0.5;
+				d3.select("#chosen_entry").html("Couldn't find pok&eacute;mon with that effectiveness rating.");
+				return 0;
 			});
 		}
 		console.log(battleFilter);
@@ -291,24 +322,9 @@ function searchName() {
 	}
 	else {
 		// Print error, empty stats
-		d3.select("#pokemon-image").attr("src", "");
+		resetOpponentPokemon();
 		d3.select("#pokemon-name").html("Error");
-		d3.select("#pokemon-entry").html("'" + pokemonName + "'" + " does not exist in database, or is not \
-			in the generation filter used. Try again.");
-		d3.select("#_id").html("");
-		d3.select("#gen").html("");
-		d3.select("#height").html("");
-		d3.select("#weight").html("");
-		d3.select("#classification").html("");
-		d3.select("#type1").html("");
-		d3.select("#type2").html("");
-		d3.select("#hp").html("");
-		d3.select("#speed").html("");
-		d3.select("#attack").html("");
-		d3.select("#defense").html("");
-		d3.select("#sp_attack").html("");
-		d3.select("#sp_defense").html("");
-		d3.select("#abilities").html("");
+		d3.select("#pokemon-entry").html("'" + pokemonName + "'" + " does not exist in database. Try again.");
 	}
 }
 
@@ -353,6 +369,7 @@ function resetCounterFilters(){
 	populateTypeDropDown(pokemonInfo);
 	populateGenDropDown(pokemonInfo);
 	populateNameDropDown(pokemonInfo);
+	resetChosenPokemon()
 }
 
 // Set up the drop-down menu for type
