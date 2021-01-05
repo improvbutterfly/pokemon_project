@@ -219,29 +219,29 @@ function searchName() {
 		console.log(againstType);
 		var battleFilter = battleInfo.filter(function(pokemon){
 			//console.log(pokemon[againstType]);
-			return pokemon[againstType] === 2;
+			return pokemon[againstType] <= 0.25;
 		});
 		console.log(battleFilter);
 
-		// If no pokemon are "2" strong against opponent's pokemon type1, check type2
+		// If no pokemon are "0.25" (super effective) strong against opponent's pokemon type1, check type2
 		if (battleFilter.length === 0){
 			battleFilter = battleInfo.filter(function(pokemon){
 				// Search by second type instead
 				againstType = "against_" + filtered[0].type2;
 				//console.log(pokemon[againstType]);
-				return pokemon[againstType] === 2;
+				return pokemon[againstType] <= 0.25;
 			});
 		}
 		console.log(battleFilter);
 
 		// This extra one is needed in cases where, for example, there is no secondary type for 
-		// opponent's pokemon, and/or there are no "2" level strong against that pokemon (e.g. Ditto)
+		// opponent's pokemon, and/or there are no "0.25" level strong against that pokemon (e.g. Ditto)
 		if (battleFilter.length === 0){
 			battleFilter = battleInfo.filter(function(pokemon){
 				// Search by first type again
 				againstType = "against_" + filtered[0].type1;
 				//console.log(pokemon[againstType]);
-				return pokemon[againstType] >= 1;
+				return pokemon[againstType] <= 0.5;
 			});
 		}
 		console.log(battleFilter);
