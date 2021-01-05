@@ -10,7 +10,8 @@ var genFilter = d3.select("#generation")
 var typeFilter = d3.select("#type")
 var pokemonNameList = d3.select("#pokemon-name-list");
     
-
+// Set names array for drop-down to update in various functions
+var names = []
 
 // Create event handlers 
 
@@ -21,6 +22,8 @@ statsButton.on("click", viewStats);
 genFilter.on("change", updateNames);
 typeFilter.on("change", updateNames);
 
+// default option for filters
+var defaultOptionName = "all";
 
 function viewStats() {
 
@@ -28,7 +31,7 @@ function viewStats() {
 	d3.event.preventDefault();
 
 	// Grab the pokemon name from the form
-	var pokemonName = capitalize(d3.select("#pokemon-name-list").property("value"));
+	var pokemonName = capitalize(pokemonNameList.property("value"));
 	var filtered = pokemonInfo;
 	
 	var matched = false;
@@ -103,11 +106,11 @@ function viewStats() {
 }
 
 function updateNames() {
-	// Work on this section
+	// Grab filtered data
 	var filteredPokemon = filterGen();
 	console.log(filteredPokemon);
 
-
+	// repopulate the name drop down based on filters
 	populateNameDropDown(filteredPokemon);
 }
 
@@ -115,10 +118,27 @@ function filterGen() {
 	
 	d3.event.preventDefault();
 
-	var gen = d3.select("#generation").property("value");
-	var type = d3.select("#type").property("value");
+	var gen = genFilter.property("value");
+	var type = typeFilter.property("value");
+
+	// Create a list of names currently in the drop-down menu
+	console.log(names);
 
 	var filtered = pokemonInfo;
+
+	// Make sure this is filtered down to just the names already in the name drop-down
+	// TODO fix this
+  	/*filtered = filtered.filter(function(d){
+  		//console.log(d.name);
+  		var filteredByName = [];
+  		for (var i = 0; i < names.length; i++){
+  			if (d.name === names[i]){
+  				filteredByName.push(d);
+  			}
+  		}
+  		return filteredByName;
+  	});
+  	console.log(filtered); */
 
 
 	if (gen != "all") {
@@ -189,6 +209,74 @@ function searchName() {
 			}
     		return returnString;
 		});
+
+		// Next we have to filter the pokemon for the form on the right
+		// TODO
+		var battlePokemon = pokemonInfo;
+
+		// find pokemon that are strong against opponent pokemon's type
+		var againstType = "against_" + filtered[0].type1;
+		console.log(againstType);
+		var battleFilter = battleInfo.filter(function(pokemon){
+			//console.log(pokemon[againstType]);
+			return pokemon[againstType] === 2;
+		});
+		console.log(battleFilter);
+
+		// If no pokemon are "2" strong against opponent's pokemon type1, check type2
+		if (battleFilter.length === 0){
+			battleFilter = battleInfo.filter(function(pokemon){
+				// Search by second type instead
+				againstType = "against_" + filtered[0].type2;
+				//console.log(pokemon[againstType]);
+				return pokemon[againstType] === 2;
+			});
+		}
+		console.log(battleFilter);
+
+		// This extra one is needed in cases where, for example, there is no secondary type for 
+		// opponent's pokemon, and/or there are no "2" level strong against that pokemon (e.g. Ditto)
+		if (battleFilter.length === 0){
+			battleFilter = battleInfo.filter(function(pokemon){
+				// Search by first type again
+				againstType = "against_" + filtered[0].type1;
+				//console.log(pokemon[againstType]);
+				return pokemon[againstType] >= 1;
+			});
+		}
+		console.log(battleFilter);
+
+		// Now we have to filter the pokemon by pokedex number from battleFilter
+		var pokedex = [];
+
+		for (var x = 0; x < battleFilter.length; x++){
+			pokedex.push(battleFilter[x]._id);
+		}
+		console.log(pokedex);
+
+
+		// Filter selected pokemon by pokedex values
+	  	battlePokemon = battlePokemon.filter(function(d){
+	  		//console.log(d.name);
+  			for (var i = 0; i < pokedex.length; i++){
+	  			if (d._id === pokedex[i]){
+	  				return d._id;
+	  			}
+  			}
+	  	});
+	  	console.log(battlePokemon); 
+
+		// Repopulate the name drop-down with filtered data
+		populateNameDropDown(battlePokemon);
+
+		// Repopulate the type drop-down with filtered data
+		populateTypeDropDown(battlePokemon);
+
+		// Reset drop-down filters to default
+		// TODO FIXME
+		/*genFilter.property("selected", function(d){
+			return d === defaultOptionName;
+		});*/
 	}
 	else {
 		// Print error, empty stats
@@ -274,7 +362,7 @@ function populateTypeDropDown(pokemonData){
 
     // Print the type options
     console.log(types);
-    d3.select("#type").selectAll("option")
+    typeFilter.selectAll("option")
     .data(types)
     .enter()
     .append("option")
@@ -291,12 +379,18 @@ function populateNameDropDown(pokemonData){
 	// Empty current drop-down list
 	pokemonNameList.html("")
 
+	// Reset names list
+	names = [];
+
     // Print all pokemon names
     pokemonNameList.selectAll("option").data(pokemonData)
     .enter()
     .append("option")
 //    .merge(pokemonNameList)
     .attr("value", function(d){
+    	// Update names array
+    	names.push(d.name);
+    	// return name
     	return d.name;
     })
     .html(function(d){
