@@ -8,7 +8,7 @@ var statsButton = d3.select("#view-stats");
 // filter select options
 var genFilter = d3.select("#generation")
 var typeFilter = d3.select("#type")
-var pokemonNameList = d3.select("#pokemon-name-list").selectAll("option");
+var pokemonNameList = d3.select("#pokemon-name-list");
     
 
 
@@ -103,7 +103,12 @@ function viewStats() {
 }
 
 function updateNames() {
+	// Work on this section
 	var filteredPokemon = filterGen();
+	console.log(filteredPokemon);
+
+
+	populateNameDropDown(filteredPokemon);
 }
 
 function filterGen() {
@@ -112,7 +117,6 @@ function filterGen() {
 
 	var gen = d3.select("#generation").property("value");
 	var type = d3.select("#type").property("value");
-	var legendary = d3.select("#legendary").property("value");
 
 	var filtered = pokemonInfo;
 
@@ -123,24 +127,8 @@ function filterGen() {
   	if (type != "all") {
   		filtered = filtered.filter(pokemon => pokemon.type1 === type || pokemon.type2 === type);
   	}
-  	if (legendary != "all") {
-  		filtered = filtered.filter(pokemon => pokemon.is_legendary === parseInt(legendary));
-  	}
   
-  	var rando = filtered[Math.floor(Math.random()*filtered.length)];
-
-  	d3.select("#pokemon-image").attr("src", "static/images/pokemon/" + imageString(rando.name) + ".jpg");
-	d3.select("#pokemon-name").html(rando.name);
-	d3.select("#pokemon-entry").html(rando.entry);
-	d3.select("#_id").html(rando._id);
-	d3.select("#gen").html(rando.generation);
-	d3.select("#height").html(rando.height_m + " m");
-	d3.select("#weight").html(rando.weight_kg + " kg");
-	d3.select("#classification").html(rando.classfication);
-	d3.select("#type1").html(rando.type1);
-	d3.select("#type2").html(rando.type2);
-	d3.select("#hp").html(rando.hp);
-	d3.select("#speed").html(rando.speed);
+	return filtered;
 }
 
 
@@ -261,42 +249,28 @@ function imageString(string) {
 	}
 	return separateWord.join('-');
 }
+
 // Set up the drop-down menu for type
-function init() {
-//console.log(pokemonInfo);
+function populateTypeDropDown(pokemonData){
 	// Create empty array for types
 	var types = ["all"];
 
 	// loop through pokemonInfo
-	for (var i = 0; i < pokemonInfo.length; i++){
+	for (var i = 0; i < pokemonData.length; i++){
 
-    var typeFound = false;
-    // Check if type is already in types array
-    for (var j = 0; j < types.length; j++){
-      if (types[j] === pokemonInfo[i].type1){
-        typeFound = true;
-        break;
-      }
-    }
-    if(!typeFound){
-      // Append unique types to list
-      types.push(pokemonInfo[i].type1);
-    }
+	    var typeFound = false;
+	    // Check if type is already in types array
+	    for (var j = 0; j < types.length; j++){
+	      if (types[j] === pokemonData[i].type1){
+	        typeFound = true;
+	        break;
+	      }
+	    }
+	    if(!typeFound){
+	      // Append unique types to list
+	      types.push(pokemonData[i].type1);
+	    }
 	}
-
-    // Print all pokemon names
-    pokemonNameList.data(pokemonInfo)
-    .enter()
-    .append("option")
-    .merge(pokemonNameList)
-    .attr("value", function(d){
-    	return d.name;
-    })
-    .html(function(d){
-    	return d.name;
-    });
-
-	pokemonNameList.exit().remove();
 
     // Print the type options
     console.log(types);
@@ -311,6 +285,35 @@ function init() {
     	return d;
     });
 
+}
+// Set up the drop-down menu for pokemon names
+function populateNameDropDown(pokemonData){
+	// Empty current drop-down list
+	pokemonNameList.html("")
+
+    // Print all pokemon names
+    pokemonNameList.selectAll("option").data(pokemonData)
+    .enter()
+    .append("option")
+//    .merge(pokemonNameList)
+    .attr("value", function(d){
+    	return d.name;
+    })
+    .html(function(d){
+    	return d.name;
+    });
+
+	//pokemonNameList.exit().remove();
+
+}
+
+// initialize the page
+function init() {
+//console.log(pokemonInfo);
+
+
+	populateNameDropDown(pokemonInfo);
+	populateTypeDropDown(pokemonInfo);
 };
 
 init();
