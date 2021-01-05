@@ -45,6 +45,11 @@ h2 {
   text-align: center;
   font-weight: bold;
 }
+
+h3 {
+  text-align: center;
+  padding-top: 20px;
+}
   
 h4 {
   color : black;
@@ -54,6 +59,10 @@ h4 {
 body {
   color: cornsilk;
   background-color: rgb(247, 237, 204);
+}
+.battle-section {
+  background-color: rgb(247, 237, 204);
+  margin-bottom: 20px;
 }
 
 .container {
@@ -110,7 +119,7 @@ td {
  color: black;
 }
 
-#filter-btn, #filter-btn2, #filter-gen, #filter-graph, #filter-pokedex { 
+#filter-btn, #filter-btn2, #filter-gen, #filter-graph, #filter-pokedex, #view-stats, #name-search { 
   background-color: #e7e7e7; 
   color: black;
   align-content: center;
