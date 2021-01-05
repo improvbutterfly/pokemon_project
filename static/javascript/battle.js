@@ -92,8 +92,7 @@ function viewStats() {
 		// Print error, empty stats
 		resetChosenPokemon();
 		d3.select("#chosen_name").html("Error");
-		d3.select("#chosen_entry").html("'" + pokemonName + "'" + " does not exist in database, or is not \
-			in the generation filter used. Try again.");
+		d3.select("#chosen_entry").html("'" + pokemonName + "'" + " does not exist in database. Try again.");
 	}
 }
 
@@ -146,6 +145,12 @@ function updateNames() {
 
 	// repopulate the name drop down based on filters
 	populateNameDropDown(filteredPokemon);
+
+	// repopulate the type drop down based on filters
+	repopulateTypeDropDown(filteredPokemon);
+
+	// repopulate the gen drop down based on filters
+	repopulateGenDropDown(filteredPokemon);
 }
 
 function filterGen() {
@@ -162,17 +167,17 @@ function filterGen() {
 
 	// Make sure this is filtered down to just the names already in the name drop-down
 	// TODO fix this
-  	/*filtered = filtered.filter(function(d){
+  	filtered = filtered.filter(function(d){
   		//console.log(d.name);
-  		var filteredByName = [];
+  		//var filteredByName = [];
   		for (var i = 0; i < names.length; i++){
   			if (d.name === names[i]){
-  				filteredByName.push(d);
+  				return d.name;
   			}
   		}
-  		return filteredByName;
+  		//return filteredByName;
   	});
-  	console.log(filtered); */
+  	console.log(filtered); 
 
 
 	if (gen != "all") {
@@ -314,11 +319,9 @@ function searchName() {
 		// Repopulate the type drop-down with filtered data
 		populateTypeDropDown(battlePokemon);
 
-		// Reset drop-down filters to default
-		// TODO FIXME
-		/*genFilter.property("selected", function(d){
-			return d === defaultOptionName;
-		});*/
+		// Repopulate the generation drop-down with filtered data
+		populateGenDropDown(battlePokemon);
+
 	}
 	else {
 		// Print error, empty stats
@@ -373,6 +376,56 @@ function resetCounterFilters(){
 }
 
 // Set up the drop-down menu for type
+function repopulateTypeDropDown(pokemonData){
+	// Create empty array for types
+	var types = ["all"];
+
+	// grab current type value to make sure it stays selected
+	var selectedType = typeFilter.property("value");
+	if (!selectedType){
+		selectedType = "all";
+	}
+
+	// loop through pokemonInfo
+	for (var i = 0; i < pokemonData.length; i++){
+
+	    var typeFound = false;
+	    // Check if type is already in types array
+	    for (var j = 0; j < types.length; j++){
+	      if (types[j] === pokemonData[i].type1){
+	        typeFound = true;
+	        break;
+	      }
+	    }
+	    if(!typeFound){
+	      // Append unique types to list
+	      types.push(pokemonData[i].type1);
+	    }
+	}
+
+	// Empty the type drop-down
+	typeFilter.html("");
+
+    // Print the type options
+    console.log(types);
+    typeFilter.selectAll("option")
+    .data(types)
+    .enter()
+    .append("option")
+    .attr("value", function(d){
+    	return d;
+    })
+	// Change selection to previously selected value
+	.property("selected", function(d){ 
+		return d === selectedType;
+	})
+    .html(function(d){
+    	return d;
+    });
+
+}
+
+// Set up the drop-down menu for type
 function populateTypeDropDown(pokemonData){
 	// Create empty array for types
 	var types = ["all"];
@@ -412,8 +465,57 @@ function populateTypeDropDown(pokemonData){
 
 }
 
+// Set up the drop-down menu for gen when pre-selected
+function repopulateGenDropDown(pokemonData){
+	// Create empty array for types
+	var gens = ["all"];
 
-// Set up the drop-down menu for type
+	// grab current gen value to make sure it stays selected
+	var selectedGen = parseInt(genFilter.property("value"));
+	if (!selectedGen){
+		selectedGen = "all";
+	}
+
+	// loop through pokemonInfo
+	for (var i = 0; i < pokemonData.length; i++){
+
+	    var genFound = false;
+	    // Check if type is already in types array
+	    for (var j = 0; j < gens.length; j++){
+	      if (gens[j] === pokemonData[i].generation){
+	        genFound = true;
+	        break;
+	      }
+	    }
+	    if(!genFound){
+	      // Append unique types to list
+	      gens.push(pokemonData[i].generation);
+	    }
+	}
+
+	// Empty the type drop-down
+	genFilter.html("");
+
+    // Print the type options
+    console.log(gens);
+    genFilter.selectAll("option")
+    .data(gens)
+    .enter()
+    .append("option")
+    .attr("value", function(d){
+    	return d;
+    })
+	// Change selection to previously selected value
+	.property("selected", function(d){ 
+		return d === selectedGen;
+	})
+    .html(function(d){
+    	return d;
+    });
+
+}
+
+// Set up the drop-down menu for gen
 function populateGenDropDown(pokemonData){
 	// Create empty array for types
 	var gens = ["all"];
