@@ -201,6 +201,9 @@ function searchName() {
 		d3.select("#hp").html("");
 		d3.select("#speed").html("");
 	}
+
+	var num1 = filtered[0]
+	return num1;
 }
 
 
@@ -218,6 +221,7 @@ function searchName2() {
 	
 	if (pokemonName2){
 	  	filter2 = filtered2.filter(pokemon => pokemon.name === pokemonName2);
+
 	  	console.log(filter2[0])
 		if (filter2[0]){
   			matched = true;
@@ -237,14 +241,24 @@ function searchName2() {
 		d3.select("#pokemon-name2").html("Error");
 		d3.select("#pokemon-entry2").html("'" + pokemonName2 + "'" + " does not exist in database, or is not \
 			in the generation filter used. Try again.");
+
 	}
+
+	var num2 = filter2[0]
+	return num2;
 }
 
 function fusionTime() {
 
-	window.open("https://pokemon.alexonsager.net");
-
-
+	var poke1 = searchName();
+	var poke2 = searchName2();
+	console.log(poke1._id);
+	console.log(poke2._id);
+	var test1 = poke1._id;
+	var test2 = poke2._id;
+	
+	var newWindow = window.open(`https://pokemon.alexonsager.net/${test1}/${test2}`, "height=200, width=200");
+	
 }
 
 // function to make sure pokemon name search string is formatted correctly
