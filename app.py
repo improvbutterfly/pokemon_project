@@ -21,8 +21,11 @@ def fight():
 	cursor = mongo.db.info.find({})
 	pokemon_info = loads(dumps(cursor))
 
+	cursor = mongo.db.battle.find({})
+	pokemon_battle = loads(dumps(cursor))
 
-	return render_template("fight.html", info=pokemon_info)
+
+	return render_template("fight.html", info=pokemon_info, battle_info=pokemon_battle)
 
 @app.route("/breed.html")
 def breed():

@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
-    <link rel="stylesheet" href="static/javascript/fight.css">
-    <script src="static/javascript/fight.js"></script>
+    <link rel="stylesheet" href="static/javascript/style.css">
 </head>
 
-<body>
+<body style="background-color: rgb(250, 248, 241);">
+{% block javascript %}
+<script>
+    var pokemonInfo = {{ info | tojson }};
+    var battleInfo = {{ battle_info | tojson }};
+    console.log(battleInfo);
+</script>
+{% endblock %}
+<script src="static/javascript/navbar.js"></script>
 
 
 <h1>Pok&eacute;mon<sup>TM</sup>:</h1> 
@@ -30,27 +37,180 @@
   
   
   <ul class="attack-list"></ul>
+
+<div class="col-md-6">
+    <div class="row">
+      <div class="col">
+        <aside class="filters">
+            <div class="panel panel-default">
+              <h3>Opponent's Pok&eacute;mon</h3>
+                <form id="filter-form">
+                  <ul class="list-group" id="filters">
+                    <div class="panel-body">
+                      <li class="filter list-group-item">
+                        <label for="input-name">Enemy Pok&eacute;mon Name</label>
+                        <input class="form-control" id="input-name" type="text" placeholder="Pikachu">
+                      </li>
+                      <li class="filter list-group-item">
+                        <button id="name-search" type="submit" class="btn btn-default">Search by Name</button>
+                      </li>
+                      </ul>
+                </form>
+            </div>
+          </aside>
+        </div>
+        <div class="pokemoncard">
+          <img src="static/images/pokemon/pikachu.jpg" id="pokemon-image" width="300"/>
+            <h2 id="pokemon-name">Pikachu</h2>
+            <br>
+              <p id="pokemon-entry">Here you will see the Pokemon blurb</p>
+              <br>
+                <table>
+                  <tbody>
+                    <tr>
+                        <th>Pok&eacute;dex #:</td>
+                        <td id="_id"></td>
+                    </tr>
+                    <tr>
+                        <th>Gen:</td>
+                        <td id="gen"></td>
+                    </tr>
+                    <tr>
+                        <th>Type 1:</td>
+                        <td id="type1"></td>
+                    </tr>
+                    <tr>
+                        <th>Type 2:</td>
+                        <td id="type2"></td>
+                    </tr>
+                    <tr>
+                        <th>Classification:</td>
+                        <td id="classification"></td>
+                    </tr>
+                    <tr>
+                        <th>Height:</td>
+                        <td id="height"></td>
+                    </tr>
+                    <tr>
+                        <th>Weight:</td>
+                        <td id="weight"></td>
+                    </tr>
+                    <tr>
+                        <th>HP:</td>
+                        <td id="hp"></td>
+                    </tr>
+                    <tr>
+                        <th>Speed:</td>
+                        <td id="speed"></td>
+                    </tr>
+                </tbody>
+            </table>
+              </div>
+      </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="row">
+      <div class="col">
+        <aside class="filters">
+            <div class="panel panel-default">
+              <h3>Recommended Counter-Pok&eacute;mon</h3>
+                <form id="filter-form">
+                  <ul class="list-group" id="filters">
+                    <div class="panel-body">
+                      <li class="filter list-group-item">
+                        <label for="pokemon-name-choice">Pok&eacute;mon Name</label>
+                        <select class="form-control" id="pokemon-name-list" name="pokemon-name-choice">
+                          <option></option>
+                        </select>
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="generation">Generation</label>
+                        <select class="form-control" id="generation" name="generation">
+                          <option value="all">all</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                        </select>
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="type">Pok&eacute;mon Type</label>
+                        <select class="form-control" id="type" name="type">
+                          <option value="all">all</option>
+                        </select>
+                      </li>
+                      <li class="filter list-group-item">
+                  <button id="view-stats" type="submit" class="btn btn-default">View Pok&eacute;mon Stats</button>
+                      </li>
+                  </ul>
+                </form>
+            </div>
+          </aside>
+        </div>
+        <div class="pokemoncard">
+          <img src="static/images/pokemon/pikachu.jpg" id="chosen_image" width="300"/>
+            <h2 id="chosen_name">Pikachu</h2>
+            <br>
+              <p id="chosen_entry">Here you will see the Pokemon blurb</p>
+              <br>
+                <table>
+                  <tbody>
+                    <tr>
+                        <th>Pok&eacute;dex #:</td>
+                        <td id="chosen_id"></td>
+                    </tr>
+                    <tr>
+                        <th>Gen:</td>
+                        <td id="chosen_gen"></td>
+                    </tr>
+                    <tr>
+                        <th>Type 1:</td>
+                        <td id="chosen_type1"></td>
+                    </tr>
+                    <tr>
+                        <th>Type 2:</td>
+                        <td id="chosen_type2"></td>
+                    </tr>
+                    <tr>
+                        <th>Classification:</td>
+                        <td id="chosen_classification"></td>
+                    </tr>
+                    <tr>
+                        <th>Height:</td>
+                        <td id="chosen_height"></td>
+                    </tr>
+                    <tr>
+                        <th>Weight:</td>
+                        <td id="chosen_weight"></td>
+                    </tr>
+                    <tr>
+                        <th>HP:</td>
+                        <td id="chosen_hp"></td>
+                    </tr>
+                    <tr>
+                        <th>Speed:</td>
+                        <td id="chosen_speed"></td>
+                    </tr>
+                </tbody>
+            </table>
+              </div>
+      </div>
+    </div>
+</div>
 </main>
 
 
-<div class="audio">
-  <audio class="sfx"></audio>
-  <audio class="music" loop></audio>
-</div>
 
-<div class="modal-out">
-  <div class="modal-in">
-    <header></header>
-    <section></section>
-    <footer></footer>
-  </div>
-</div>
-
+<script src="static/javascript/footer.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="static/javascript/app.js"></script>
+<script src="static/javascript/battle.js"></script>
 
 </body>
 </html>
