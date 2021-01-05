@@ -20,30 +20,18 @@
 <script src="static/javascript/navbar.js"></script>
 
 
-<h1>Pok&eacute;mon<sup>TM</sup>:</h1> 
-<h2>Choose your fighter</h2><br>  
+<h1>Battle Strategy</h1> 
 
-<main>
-  <div class="instructions">
-    <p>Choose your hero</p>
-  </div>
-  
-  <section class="characters"></section>
-  
-  <section class="stadium">
-    <section class="enemy"></section>
-    <section class="hero"></section>
-  </section>
-  
-  
-  <ul class="attack-list"></ul>
-
-<div class="col-md-6">
-    <div class="row">
-      <div class="col">
-        <aside class="filters">
-            <div class="panel panel-default">
-              <h3>Opponent's Pok&eacute;mon</h3>
+<div class="summary">
+  <p>On the left, search by name for the pok&eacute;mon your opponent chose. It will filter the pok&eacute;mon on the right down to pok&eacute;mon that are strong against your opponent's pok&eacute;mon type. You can further filter by generation and type.</p>
+</div>
+<main class="container battle-section">
+  <div class="col-md-6 battle-section">
+      <div class="row">
+        <div class="col">
+          <aside class="filters">
+              <div class="panel panel-default">
+                <h3>Opponent's Pok&eacute;mon</h3>
                 <form id="filter-form">
                   <ul class="list-group" id="filters">
                     <div class="panel-body">
@@ -54,154 +42,198 @@
                       <li class="filter list-group-item">
                         <button id="name-search" type="submit" class="btn btn-default">Search by Name</button>
                       </li>
-                      </ul>
-                </form>
-            </div>
-          </aside>
-        </div>
-        <div class="pokemoncard">
-          <img src="static/images/pokemon/pikachu.jpg" id="pokemon-image" width="300"/>
-            <h2 id="pokemon-name">Pikachu</h2>
-            <br>
-              <p id="pokemon-entry">Here you will see the Pokemon blurb</p>
-              <br>
-                <table>
-                  <tbody>
-                    <tr>
-                        <th>Pok&eacute;dex #:</td>
-                        <td id="_id"></td>
-                    </tr>
-                    <tr>
-                        <th>Gen:</td>
-                        <td id="gen"></td>
-                    </tr>
-                    <tr>
-                        <th>Type 1:</td>
-                        <td id="type1"></td>
-                    </tr>
-                    <tr>
-                        <th>Type 2:</td>
-                        <td id="type2"></td>
-                    </tr>
-                    <tr>
-                        <th>Classification:</td>
-                        <td id="classification"></td>
-                    </tr>
-                    <tr>
-                        <th>Height:</td>
-                        <td id="height"></td>
-                    </tr>
-                    <tr>
-                        <th>Weight:</td>
-                        <td id="weight"></td>
-                    </tr>
-                    <tr>
-                        <th>HP:</td>
-                        <td id="hp"></td>
-                    </tr>
-                    <tr>
-                        <th>Speed:</td>
-                        <td id="speed"></td>
-                    </tr>
-                </tbody>
-            </table>
-              </div>
-      </div>
-    </div>
-</div>
-<div class="col-md-6">
-    <div class="row">
-      <div class="col">
-        <aside class="filters">
-            <div class="panel panel-default">
-              <h3>Recommended Counter-Pok&eacute;mon</h3>
-                <form id="filter-form">
-                  <ul class="list-group" id="filters">
-                    <div class="panel-body">
-                      <li class="filter list-group-item">
-                        <label for="pokemon-name-choice">Pok&eacute;mon Name</label>
-                        <select class="form-control" id="pokemon-name-list" name="pokemon-name-choice">
-                          <option></option>
-                        </select>
-                      </li>
-                      <li class="filter list-group-item">
-                        <label for="generation">Generation</label>
-                        <select class="form-control" id="generation" name="generation">
-                          <option value="all">all</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                        </select>
-                      </li>
-                      <li class="filter list-group-item">
-                        <label for="type">Pok&eacute;mon Type</label>
-                        <select class="form-control" id="type" name="type">
-                          <option value="all">all</option>
-                        </select>
-                      </li>
-                      <li class="filter list-group-item">
-                  <button id="view-stats" type="submit" class="btn btn-default">View Pok&eacute;mon Stats</button>
-                      </li>
+                    </div>
                   </ul>
                 </form>
+              </div>
             </div>
           </aside>
         </div>
-        <div class="pokemoncard">
-          <img src="static/images/pokemon/pikachu.jpg" id="chosen_image" width="300"/>
-            <h2 id="chosen_name">Pikachu</h2>
-            <br>
-              <p id="chosen_entry">Here you will see the Pokemon blurb</p>
+          <div class="pokemoncard">
+            <img src="static/images/pokemon/pikachu.jpg" id="pokemon-image" width="300"/>
+              <h2 id="pokemon-name">Pikachu</h2>
               <br>
-                <table>
-                  <tbody>
-                    <tr>
-                        <th>Pok&eacute;dex #:</td>
-                        <td id="chosen_id"></td>
-                    </tr>
-                    <tr>
-                        <th>Gen:</td>
-                        <td id="chosen_gen"></td>
-                    </tr>
-                    <tr>
-                        <th>Type 1:</td>
-                        <td id="chosen_type1"></td>
-                    </tr>
-                    <tr>
-                        <th>Type 2:</td>
-                        <td id="chosen_type2"></td>
-                    </tr>
-                    <tr>
-                        <th>Classification:</td>
-                        <td id="chosen_classification"></td>
-                    </tr>
-                    <tr>
-                        <th>Height:</td>
-                        <td id="chosen_height"></td>
-                    </tr>
-                    <tr>
-                        <th>Weight:</td>
-                        <td id="chosen_weight"></td>
-                    </tr>
-                    <tr>
-                        <th>HP:</td>
-                        <td id="chosen_hp"></td>
-                    </tr>
-                    <tr>
-                        <th>Speed:</td>
-                        <td id="chosen_speed"></td>
-                    </tr>
-                </tbody>
-            </table>
-              </div>
+                <p id="pokemon-entry">Here you will see the Pokemon blurb</p>
+                <br>
+                  <table>
+                    <tbody>
+                      <tr>
+                          <th>Pok&eacute;dex #:</th>
+                          <td id="_id"></td>
+                      </tr>
+                      <tr>
+                          <th>Gen:</th>
+                          <td id="gen"></td>
+                      </tr>
+                      <tr>
+                          <th>Type 1:</th>
+                          <td id="type1"></td>
+                      </tr>
+                      <tr>
+                          <th>Type 2:</th>
+                          <td id="type2"></td>
+                      </tr>
+                      <tr>
+                          <th>Classification:</th>
+                          <td id="classification"></td>
+                      </tr>
+                      <tr>
+                          <th>Height:</th>
+                          <td id="height"></td>
+                      </tr>
+                      <tr>
+                          <th>Weight:</th>
+                          <td id="weight"></td>
+                      </tr>
+                      <tr>
+                          <th>HP:</th>
+                          <td id="hp"></td>
+                      </tr>
+                      <tr>
+                          <th>Speed:</th>
+                          <td id="speed"></td>
+                      </tr>
+                      <tr>
+                          <th>Attack:</th>
+                          <td id="attack"></td>
+                      </tr>
+                      <tr>
+                          <th>Defense:</th>
+                          <td id="defense"></td>
+                      </tr>
+                      <tr>
+                          <th>Special Attack:</th>
+                          <td id="sp_attack"></td>
+                      </tr>
+                      <tr>
+                          <th>Special Defense:</th>
+                          <td id="sp_defense"></td>
+                      </tr>
+                      <tr>
+                          <th>Abilities:</th>
+                          <td id="abilities"></td>
+                      </tr>
+                  </tbody>
+              </table>
+                </div>
+        
       </div>
-    </div>
-</div>
-</main>
+  </div>
+
+  <div class="col-md-6 battle-section">
+      <div class="row">
+        <div class="col">
+          <aside class="filters">
+              <div class="panel panel-default">
+                <h3>Recommended Counter-Pok&eacute;mon</h3>
+                  <form id="filter-form">
+                    <ul class="list-group" id="filters">
+                      <div class="panel-body">
+                        <li class="filter list-group-item">
+                          <label for="pokemon-name-choice">Pok&eacute;mon Name</label>
+                          <select class="form-control" id="pokemon-name-list" name="pokemon-name-choice">
+                            <option></option>
+                          </select>
+                        </li>
+                        <li class="filter list-group-item">
+                          <label for="generation">Generation</label>
+                          <select class="form-control" id="generation" name="generation">
+                            <option value="all">all</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                          </select>
+                        </li>
+                        <li class="filter list-group-item">
+                          <label for="type">Pok&eacute;mon Type</label>
+                          <select class="form-control" id="type" name="type">
+                            <option value="all">all</option>
+                          </select>
+                        </li>
+                        <li class="filter list-group-item">
+                    <button id="view-stats" type="submit" class="btn btn-default">View Pok&eacute;mon Stats</button>
+                        </li>
+                      </div>
+                    </ul>
+                  </form>
+              </div>
+            </aside>
+          </div>
+          <div class="pokemoncard">
+            <img src="static/images/pokemon/pikachu.jpg" id="chosen_image" width="300"/>
+              <h2 id="chosen_name">Pikachu</h2>
+              <br>
+                <p id="chosen_entry">Here you will see the Pokemon blurb</p>
+                <br>
+                  <table>
+                    <tbody>
+                      <tr>
+                          <th>Pok&eacute;dex #:</th>
+                          <td id="chosen_id"></td>
+                      </tr>
+                      <tr>
+                          <th>Gen:</th>
+                          <td id="chosen_gen"></td>
+                      </tr>
+                      <tr>
+                          <th>Type 1:</th>
+                          <td id="chosen_type1"></td>
+                      </tr>
+                      <tr>
+                          <th>Type 2:</th>
+                          <td id="chosen_type2"></td>
+                      </tr>
+                      <tr>
+                          <th>Classification:</th>
+                          <td id="chosen_classification"></td>
+                      </tr>
+                      <tr>
+                          <th>Height:</th>
+                          <td id="chosen_height"></td>
+                      </tr>
+                      <tr>
+                          <th>Weight:</th>
+                          <td id="chosen_weight"></td>
+                      </tr>
+                      <tr>
+                          <th>HP:</th>
+                          <td id="chosen_hp"></td>
+                      </tr>
+                      <tr>
+                          <th>Speed:</th>
+                          <td id="chosen_speed"></td>
+                      </tr>
+                      <tr>
+                          <th>Attack:</th>
+                          <td id="chosen_attack"></td>
+                      </tr>
+                      <tr>
+                          <th>Defense:</th>
+                          <td id="chosen_defense"></td>
+                      </tr>
+                      <tr>
+                          <th>Special Attack:</th>
+                          <td id="chosen_sp_attack"></td>
+                      </tr>
+                      <tr>
+                          <th>Special Defense:</th>
+                          <td id="chosen_sp_defense"></td>
+                      </tr>
+                      <tr>
+                          <th>Abilities:</th>
+                          <td id="chosen_abilities"></td>
+                      </tr>
+                  </tbody>
+              </table>
+                </div>
+        </div>
+      </div>
+</main>  
+
 
 
 
