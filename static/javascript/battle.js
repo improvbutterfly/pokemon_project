@@ -1,9 +1,14 @@
 
-// Select the button
+// Select the opponent button
 var opponentButton = d3.select("#name-search");
 
-// Selecting the stats button
+// Select the stats button
 var statsButton = d3.select("#view-stats");
+
+// Select the reset button
+var resetButton = d3.select("#reset");
+
+
 
 // filter select options
 var genFilter = d3.select("#generation")
@@ -16,6 +21,7 @@ var names = []
 // Create event handlers 
 
 opponentButton.on("click", searchName);
+resetButton.on("click", resetCounterFilters);
 
 statsButton.on("click", viewStats);
 
@@ -214,14 +220,19 @@ function searchName() {
 		// TODO
 		var battlePokemon = pokemonInfo;
 
+		// get effectiveness to filter
+		var effectiveness = parseFloat(d3.select("#effectiveness").property("value"));
+		console.log(effectiveness);
+
 		// find pokemon that are strong against opponent pokemon's type
 		var againstType = "against_" + filtered[0].type1;
 		console.log(againstType);
 		var battleFilter = battleInfo.filter(function(pokemon){
 			//console.log(pokemon[againstType]);
-			return pokemon[againstType] <= 0.25;
+			return pokemon[againstType] === effectiveness;
 		});
 		console.log(battleFilter);
+
 
 		// If no pokemon are "0.25" (super effective) strong against opponent's pokemon type1, check type2
 		if (battleFilter.length === 0){
@@ -229,7 +240,7 @@ function searchName() {
 				// Search by second type instead
 				againstType = "against_" + filtered[0].type2;
 				//console.log(pokemon[againstType]);
-				return pokemon[againstType] <= 0.25;
+				return pokemon[againstType] === effectiveness;
 			});
 		}
 		console.log(battleFilter);
@@ -338,6 +349,12 @@ function imageString(string) {
 	return separateWord.join('-');
 }
 
+function resetCounterFilters(){
+	populateTypeDropDown(pokemonInfo);
+	populateGenDropDown(pokemonInfo);
+	populateNameDropDown(pokemonInfo);
+}
+
 // Set up the drop-down menu for type
 function populateTypeDropDown(pokemonData){
 	// Create empty array for types
@@ -360,6 +377,9 @@ function populateTypeDropDown(pokemonData){
 	    }
 	}
 
+	// Empty the type drop-down
+	typeFilter.html("");
+
     // Print the type options
     console.log(types);
     typeFilter.selectAll("option")
@@ -374,6 +394,48 @@ function populateTypeDropDown(pokemonData){
     });
 
 }
+
+
+// Set up the drop-down menu for type
+function populateGenDropDown(pokemonData){
+	// Create empty array for types
+	var gens = ["all"];
+
+	// loop through pokemonInfo
+	for (var i = 0; i < pokemonData.length; i++){
+
+	    var genFound = false;
+	    // Check if type is already in types array
+	    for (var j = 0; j < gens.length; j++){
+	      if (gens[j] === pokemonData[i].generation){
+	        genFound = true;
+	        break;
+	      }
+	    }
+	    if(!genFound){
+	      // Append unique types to list
+	      gens.push(pokemonData[i].generation);
+	    }
+	}
+
+	// Empty the type drop-down
+	genFilter.html("");
+
+    // Print the type options
+    console.log(gens);
+    genFilter.selectAll("option")
+    .data(gens)
+    .enter()
+    .append("option")
+    .attr("value", function(d){
+    	return d;
+    })
+    .html(function(d){
+    	return d;
+    });
+
+}
+
 // Set up the drop-down menu for pokemon names
 function populateNameDropDown(pokemonData){
 	// Empty current drop-down list
@@ -405,9 +467,9 @@ function populateNameDropDown(pokemonData){
 function init() {
 //console.log(pokemonInfo);
 
-
-	populateNameDropDown(pokemonInfo);
-	populateTypeDropDown(pokemonInfo);
+	resetCounterFilters();
+	//populateNameDropDown(pokemonInfo);
+	//populateTypeDropDown(pokemonInfo);
 };
 
 init();

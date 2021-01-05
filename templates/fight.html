@@ -40,7 +40,19 @@
                         <input class="form-control" id="input-name" type="text" placeholder="Pikachu">
                       </li>
                       <li class="filter list-group-item">
+                        <label for="effectiveness">Effectiveness</label>
+                        <select class="form-control" id="effectiveness" name="effectiveness">
+                          <option value="0.25">super effective</option>
+                          <option value="0.5">effective</option>
+                          <option value="1">normal</option>
+                          <option value="2">weak</option>
+                        </select>
+                      </li>
+                      <li class="filter list-group-item">
                         <button id="name-search" type="submit" class="btn btn-default">Search by Name</button>
+                      </li>
+                      <li class="filter list-group-item">
+                        <button id="reset" type="button" class="btn btn-danger">Reset Filters</button>
                       </li>
                     </div>
                   </ul>
