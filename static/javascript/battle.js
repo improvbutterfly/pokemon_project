@@ -287,7 +287,8 @@ function searchName() {
 				// Search by first type again
 				//againstType = "against_" + filtered[0].type1;
 				//console.log(pokemon[againstType]);
-				d3.select("#chosen_entry").html("Couldn't find pok&eacute;mon with that effectiveness rating.");
+				d3.select("#chosen_name").html("Uh-oh!")
+				d3.select("#chosen_entry").html("Couldn't find any pok&eacute;mon with that effectiveness rating.");
 				return 0;
 			});
 		}
